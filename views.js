@@ -20,7 +20,7 @@ export const postView = (post) => {
                 Phasellus nec iaculis mauris.
                 <a href="#">#css</a> <a href="#">#responsive</a>
                 <br>
-                <time datetime="2016-1-1"></time>
+                <time datetime="2016-1-1">${post.published}</time>
                 </div>
             </div>
         </div>

@@ -1,29 +1,31 @@
-import { postView } from './views.js'
+import { postView } from '../../views.js';
 
-window.addEventListener('DOMContentLoaded', async (e) => {
-    async function loadPosts() {
+export default class PostListController {
+
+    constructor(element) {
+        this.element = element;
+    }
+
+    async loadPosts(type) {
         const url = 'http://localhost:8000/api/posts'
         const response = await fetch(url);
         if(response.ok) {
             const data = await response.json();
-            // console.log('ANUNCIOS', data);
-            return data
+            console.log('ANUNCIOS', data);
+            this.render(data, type) 
         } else {
             throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
         }
     }
 
-    function render(posts, type) {
-        const postList = document.querySelector('.main');
+     render(posts, type) {
         for (const post of posts) {
-            if (post.type = type) {
+            if (post.type == type) {
                 const article = document.createElement('article');
                 article.innerHTML = postView(post)
-                postList.appendChild(article);
+                this.element.appendChild(article);
             }
         }
     }
 
-    const posts = await loadPosts()
-    render(posts, "Venta")
-})
+}

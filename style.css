@@ -1,5 +1,6 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css";
 
-* {
-    margin: 0;
+.card > .card-content time {
+    color: grey;
+    font-size: .8rem;
 }
