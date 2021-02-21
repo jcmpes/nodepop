@@ -1,4 +1,4 @@
-export const postView = (post) => {
+export const postListView = (post) => {
     return `
         <div class="card">
             <div class="card-image">

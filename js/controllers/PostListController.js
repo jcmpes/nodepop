@@ -1,5 +1,6 @@
 import pubSub from  '../../services/PubSub.js'
-import { postView } from '../../views.js';
+import { postListView } from '../views/postListView.js';
+import { errorView } from '../views/errorView.js'
 
 export default class PostListController {
 
@@ -23,10 +24,16 @@ export default class PostListController {
     }
 
      render(posts, type) {
+        // State of no ads to show
+        if (posts.length == 0) {
+            const error = document.createElement('div');
+            error.innerHTML = errorView();
+            this.element.appendChild(error)
+        }
         for (const post of posts) {
             if (post.type == type) {
                 const article = document.createElement('article');
-                article.innerHTML = postView(post)
+                article.innerHTML = postListView(post)
                 this.element.appendChild(article);
             }
         }
