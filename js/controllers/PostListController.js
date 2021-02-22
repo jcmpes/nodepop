@@ -1,6 +1,7 @@
 import pubSub from  '../../services/PubSub.js'
 import { postListView } from '../views/postListView.js';
 import { errorView } from '../views/errorView.js'
+import PostDetailController from './PostDetailController.js';
 
 const POSTS_ERROR = 'posts_err';
 const API_ERROR = 'api_err';
@@ -9,6 +10,18 @@ export default class PostListController {
 
     constructor(element) {
         this.element = element;
+
+        pubSub.subscribe('detail', (linkTo) => {
+            console.log(linkTo)
+            new PostDetailController(this.element)
+        })
+        this.loadPosts('Venta').then(() => {
+            this.element.querySelector('.link').addEventListener('click', (e) => {
+                const linkTo = e.target.parentElement.parentElement.attributes.href.value;
+                pubSub.publish('detail', linkTo)
+            })
+        })
+
     }
 
     async loadPosts(type) {
