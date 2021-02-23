@@ -11,14 +11,21 @@ export default class PostListController {
     constructor(element) {
         this.element = element;
 
+        // Create an instance of detail view when 
         pubSub.subscribe('detail', (linkTo) => {
             console.log(linkTo)
             new PostDetailController(this.element)
         })
+
+        // Load posts
         this.loadPosts('Venta').then(() => {
-            this.element.querySelector('.link').addEventListener('click', (e) => {
-                const linkTo = e.target.parentElement.parentElement.attributes.href.value;
-                pubSub.publish('detail', linkTo)
+            // Listen for a click on an ad
+            this.element.querySelectorAll('.link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const linkTo = e.target.parentElement.parentElement.attributes.href.value;
+                    pubSub.publish('detail', linkTo)
+                })
+
             })
         })
 
@@ -26,7 +33,6 @@ export default class PostListController {
 
     async loadPosts(type) {
         const url = 'http://localhost:8000/api/posts'
-        // debugger;
         pubSub.publish('loading', {})
         const response = await fetch(url);
         if(response.ok) {            

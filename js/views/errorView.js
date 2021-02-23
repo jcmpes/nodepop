@@ -20,7 +20,7 @@ export const errorView = (type) => {
                 <button class="delete" aria-label="delete"></button>
             </div>
             <div class="message-body">
-                Error al cargar los anuncios. La carga de anuncios desde el servidor ha fallado, intentalo de nuevo.
+                Error al cargar la información solicitada. La carga de anuncios desde el servidor ha fallado, inténtalo de nuevo.
             </div>
         </article>
         `
