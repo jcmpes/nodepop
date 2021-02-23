@@ -1,6 +1,7 @@
 import pubSub from '../../services/PubSub.js'
 import { postDetailView } from '../views/postDetailView.js'
 import { errorView } from '../views/errorView.js'
+import PostListController from './PostListController.js'
 
 
 const POSTS_ERROR = 'posts_err';
@@ -8,18 +9,26 @@ const API_ERROR = 'api_err';
 
 export default class PostDetailController {
 
-    constructor(element) {
+    constructor(element, context) {
         this.element = element;
+        // debugger;
+        // pubSub.subscribe('detail', (linkTo) => {
+        //     this.tempView = this.element.innerHTML;
+        //     this.element.innerHTML = '';
+        //     console.log('LOAD NEW POST NOW')
+        console.log(context)
+            this.loadPost(context.linkTo).then(() => {
+                this.element.querySelector('#back-btn').addEventListener('click', () => {
+                    
+                    this.goBack(context.scrollY);
+                })
+            })
+        // });
 
-        pubSub.subscribe('detail', (linkTo) => {
-            this.element.innerHTML = '';
-            console.log('LOAD NEW POST NOW')
-            this.loadPost(linkTo)
-        })
     }
 
     async loadPost(id) {
-        const url = `http://localhost:8000/api/posts/${id}9`;
+        const url = `http://localhost:8000/api/posts/${id}`;
         pubSub.publish('loading', {})
         const response = await fetch(url);
         if (response.ok) {
@@ -39,6 +48,20 @@ export default class PostDetailController {
     render(post) {
         const section = document.createElement('section');
         section.innerHTML = postDetailView(post);
-        this.element.appendChild(section)
+        const tempHTML = this.element.innerHTML;
+        this.element.innerHTML = '';
+        new Promise((resolve, reject) => {
+            this.element.appendChild(section);
+            resolve(window.scroll(0, 0))
+        });
+    }
+
+    goBack(scrollY) {
+        this.element.innerHTML = '';
+
+        console.log('scrollY', scrollY)
+        new PostListController(this.element, scrollY)
+        // this.element.innerHTML = this.tempView;
+
     }
 }

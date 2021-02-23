@@ -8,22 +8,34 @@ const API_ERROR = 'api_err';
 
 export default class PostListController {
 
-    constructor(element) {
+    constructor(element, scrollY=0) {
         this.element = element;
-
-        // Create an instance of detail view when 
-        pubSub.subscribe('detail', (linkTo) => {
-            console.log(linkTo)
-            new PostDetailController(this.element)
+        this.scrollY = scrollY;
+        // Create an instance of detail view when 'detail' event is heard
+        pubSub.subscribe('detail', (context) => {
+            console.log('POST ID, SCROLL', context.linkTo, context.scrollY)
+            new PostDetailController(this.element, context)
         })
 
         // Load posts
+        this.element.innerHTML = '';
         this.loadPosts('Venta').then(() => {
-            // Listen for a click on an ad
+            // Listen for a click on a post
+            console.log('SCROLL DE VUELTA', scrollY);
+            if(this.scrollY != 0) {
+                window.scroll(0, scrollY);
+            }
             this.element.querySelectorAll('.link').forEach(link => {
+                console.log('CLICK ON LINK')
                 link.addEventListener('click', (e) => {
+                    const scrollY = e.pageY - e.clientY;
+                    console.log(e);
                     const linkTo = e.target.parentElement.parentElement.attributes.href.value;
-                    pubSub.publish('detail', linkTo)
+                    const context = {
+                        'scrollY': scrollY,
+                        'linkTo': linkTo
+                    }
+                    pubSub.publish('detail', context)
                 })
 
             })

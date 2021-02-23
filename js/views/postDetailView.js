@@ -1,5 +1,7 @@
 export const postDetailView = (post) => {
     return `
+        <button id="back-btn" class="button is-rounded">Back</button>
+
         <div class="card">
             <header class="card-header">
                 <p class="card-header-title">
