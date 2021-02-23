@@ -1,6 +1,11 @@
 export const postDetailView = (post) => {
     return `
         <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    ${post.type}
+                </p>
+            </header>
             <div class="card-image">
                     <figure class="image is-4by3">
                         <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
@@ -24,6 +29,16 @@ export const postDetailView = (post) => {
                     <time datetime="2016-1-1">${post.published}</time>
                 </div>
             </div>
+            <footer class="card-footer">
+                <a href="#" class="card-footer-item">Comprar</a>
+                <a href="#" class="card-footer-item">Contactar</a>
+                <a href="#" class="card-footer-item">
+                    Me gusta
+                    <span class="icon">
+                        <i class="far fa-heart"></i>
+                    </span>
+                </a>
+            </footer>
         </div>
     `
 }
