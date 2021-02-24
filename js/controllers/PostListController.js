@@ -44,13 +44,12 @@ export default class PostListController {
     }
 
     async loadPosts(type) {
-        const url = 'http://localhost:8000i/api/posts'
+        const url = 'http://localhost:8000/api/posts'
         pubSub.publish('loading', {})
         try {
             const response = await fetch(url);
             if(response.ok) {
                 const data = await response.json();
-                console.log('ANUNCIOS', data);
                 this.render(data, type)
             } else {
                 throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')

@@ -11,37 +11,40 @@ export default class PostDetailController {
 
     constructor(element, context) {
         this.element = element;
-        // debugger;
-        // pubSub.subscribe('detail', (linkTo) => {
-        //     this.tempView = this.element.innerHTML;
-        //     this.element.innerHTML = '';
-        //     console.log('LOAD NEW POST NOW')
-        console.log(context)
-            this.loadPost(context.linkTo).then(() => {
-                this.element.querySelector('#back-btn').addEventListener('click', () => {
-                    
-                    this.goBack(context.scrollY);
-                })
+        this.context = context;
+
+        this.loadPost(context.linkTo)
+            .then(() => {
+            this.element.querySelector('#back-btn').addEventListener('click', () => {
+                this.goBack(context.scrollY);
             })
+        })
         // });
 
     }
 
     async loadPost(id) {
-        const url = `http://localhost:8000/api/posts/${id}`;
+        const url = `http://localhost:80000/api/posts/${id}`;
         pubSub.publish('loading', {})
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = await response.json();
-            console.log('ANUNCIO', data);
-            pubSub.publish('loaded', {})
-            this.render(data);
-        } else {
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                const data = await response.json();
+                this.render(data);
+            } else {
+                throw new Error('ERROR CONSULTANDO EL ANUNCIO EN LA API')
+            }    
+        } catch (err) {
             const error = document.createElement('div');
-            error.innerHTML = errorView(API_ERROR);
+            error.innerHTML = errorView(API_ERROR, err);
+            this.element.innerHTML = '';
             this.element.appendChild(error);
-            pubSub.publish('loaded', {})
-            throw new Error('ERROR CONSULTANDO EL ANUNCIO EN LA API')
+            await this.element.querySelector('.delete').addEventListener('click', () => {
+                this.goBack(this.context.scrollY)
+            })
+            throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
+        } finally {
+            pubSub.publish('loaded', {});
         }
     }
 
