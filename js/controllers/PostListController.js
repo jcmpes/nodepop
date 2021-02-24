@@ -1,3 +1,4 @@
+import dataService from '../../services/DataService.js'
 import pubSub from  '../../services/PubSub.js'
 import { postListView } from '../views/postListView.js';
 import { errorView } from '../views/errorView.js'
@@ -44,16 +45,11 @@ export default class PostListController {
     }
 
     async loadPosts(type) {
-        const url = 'http://localhost:8000/api/posts'
         pubSub.publish('loading', {})
         try {
-            const response = await fetch(url);
-            if(response.ok) {
-                const data = await response.json();
-                this.render(data, type)
-            } else {
-                throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
-            }
+            const data = await dataService.getPosts();
+            this.render(data, "Venta")
+        // Control error if data is not received
         } catch (err) {
             const error = document.createElement('div');
             error.innerHTML = errorView(API_ERROR, err);
