@@ -28,8 +28,8 @@ export default class PostListController {
             this.element.querySelectorAll('.link').forEach(link => {
                 console.log('CLICK ON LINK')
                 link.addEventListener('click', (e) => {
+                    // Remember scrollY position
                     const scrollY = e.pageY - e.clientY;
-                    console.log(e);
                     const linkTo = e.target.parentElement.parentElement.attributes.href.value;
                     const context = {
                         'scrollY': scrollY,
@@ -44,22 +44,25 @@ export default class PostListController {
     }
 
     async loadPosts(type) {
-        const url = 'http://localhost:8000/api/posts'
+        const url = 'http://localhost:8000/api/postss'
         pubSub.publish('loading', {})
-        const response = await fetch(url);
-        if(response.ok) {            
-            const data = await response.json();
-            console.log('ANUNCIOS', data);
-            pubSub.publish('loaded', {})
-            this.render(data, type)
-        } else {
+        try {
+            const response = await fetch(url);
+            if(response.ok) {
+                const data = await response.json();
+                console.log('ANUNCIOS', data);
+                this.render(data, type)
+            } else {
+                throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS', err)
+            }
+        } catch (err) {
             const error = document.createElement('div');
             error.innerHTML = errorView(API_ERROR);
-            this.element.appendChild(error);
+            this.element.appendChild(error);     
+            throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS', err)
+        } finally {
             pubSub.publish('loaded', {})
-            throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
-        }
-        
+        }       
     }
 
      render(posts, type) {
