@@ -1,4 +1,4 @@
-export const errorView = (type) => {
+export const errorView = (type, err='') => {
     if (type == 'posts_err') {
         return `
             <article class="message is-warning">
@@ -20,7 +20,7 @@ export const errorView = (type) => {
                 <button class="delete" aria-label="delete"></button>
             </div>
             <div class="message-body">
-                Error al cargar la información solicitada. La carga de anuncios desde el servidor ha fallado, inténtalo de nuevo.
+                Error al cargar la información solicitada. La carga de anuncios desde el servidor ha fallado.<br> ${err}.
             </div>
         </article>
         `

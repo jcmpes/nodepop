@@ -44,7 +44,7 @@ export default class PostListController {
     }
 
     async loadPosts(type) {
-        const url = 'http://localhost:8000/api/postss'
+        const url = 'http://localhost:8000i/api/posts'
         pubSub.publish('loading', {})
         try {
             const response = await fetch(url);
@@ -53,13 +53,13 @@ export default class PostListController {
                 console.log('ANUNCIOS', data);
                 this.render(data, type)
             } else {
-                throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS', err)
+                throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
             }
         } catch (err) {
             const error = document.createElement('div');
-            error.innerHTML = errorView(API_ERROR);
+            error.innerHTML = errorView(API_ERROR, err);
             this.element.appendChild(error);     
-            throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS', err)
+            throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
         } finally {
             pubSub.publish('loaded', {})
         }       
