@@ -1,3 +1,4 @@
+import dataService from '../../services/DataService.js'
 import pubSub from '../../services/PubSub.js'
 import { postDetailView } from '../views/postDetailView.js'
 import { errorView } from '../views/errorView.js'
@@ -24,16 +25,10 @@ export default class PostDetailController {
     }
 
     async loadPost(id) {
-        const url = `http://localhost:80000/api/posts/${id}`;
         pubSub.publish('loading', {})
         try {
-            const response = await fetch(url);
-            if (response.ok) {
-                const data = await response.json();
-                this.render(data);
-            } else {
-                throw new Error('ERROR CONSULTANDO EL ANUNCIO EN LA API')
-            }    
+            const data = await dataService.getSinglePost(id)
+            this.render(data)
         } catch (err) {
             const error = document.createElement('div');
             error.innerHTML = errorView(API_ERROR, err);
@@ -61,10 +56,7 @@ export default class PostDetailController {
 
     goBack(scrollY) {
         this.element.innerHTML = '';
-
-        console.log('scrollY', scrollY)
         new PostListController(this.element, scrollY)
-        // this.element.innerHTML = this.tempView;
 
     }
 }
