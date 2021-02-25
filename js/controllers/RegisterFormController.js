@@ -1,6 +1,8 @@
-import dataService from '../../services/DataService.js'
-import { registerView } from '../views/registerView.js'
-import { loginView } from '../views/loginView.js'
+import dataService from '../../services/DataService.js';
+import pubSub from '../../services/PubSub.js';
+import { registerView } from '../views/registerView.js';
+import { loginView } from '../views/loginView.js';
+import LoginFormController from '../controllers/LoginFormController.js'
 
 export default class RegisterFormController {
 
@@ -8,26 +10,35 @@ export default class RegisterFormController {
         this.element = element
         this.renderRegisterForm();
         this.actionsEventListener();
+
+        pubSub.subscribe('login', () => {
+            new LoginFormController(this.element);
+        })
     };
 
     actionsEventListener() {
         // Submit registration 
         this.element.addEventListener('submit', async (e) => {
-            e.preventDefault()
-            const userData = {
-                username: this.element.elements.name.value,
-                email: this.element.elements.email.value,
-                mobile: this.element.elements.mobile.value,
-                password: this.element.elements.password.value
+            if (e.submitter.id == "submit-btn") {
+                // Only for the register form
+                e.preventDefault()
+                console.log(e)
+                const userData = {
+                    username: this.element.elements.name.value,
+                    email: this.element.elements.email.value,
+                    mobile: this.element.elements.mobile.value,
+                    password: this.element.elements.password.value
+                }
+                const data = await dataService.registerUser(userData);
+                this.renderLogInForm();
             }
-            const data = await dataService.registerUser(userData);
-            this.renderLogInForm();
         });
         // Show login form
         const loginLink = this.element.querySelector('.login-link');
         loginLink.addEventListener('click', (e) => {
             e.preventDefault();
-            this.renderLogInForm();
+            pubSub.publish('login', {})
+            // this.renderLogInForm();
 
         })
     };

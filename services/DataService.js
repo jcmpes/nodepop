@@ -47,6 +47,29 @@ export default {
         }
     },
 
+    loginUser: async function(userData) {
+        const url = `${BASE_URL}/auth/login`;
+        const request = {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        };
+        try {
+            const response = await fetch(url, request);
+            const data = await response.json();
+            if (response.ok) {
+                return data;
+            }
+        } catch (error) {
+            throw new Error('LOGIN ERROR')
+        }
+    },
+
+    saveToken: async function(accessToken) {
+        localStorage.setItem('accessToken', accessToken)
+    }
 
 
 

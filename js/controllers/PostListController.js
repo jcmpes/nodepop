@@ -14,7 +14,7 @@ export default class PostListController {
         this.scrollY = scrollY;
         // Create an instance of detail view when 'detail' event is heard
         pubSub.subscribe('detail', (context) => {
-            console.log('POST ID, SCROLL', context.linkTo, context.scrollY)
+            // Instance a new post detail object passing the page scroll information
             new PostDetailController(this.element, context)
         })
 
@@ -27,7 +27,6 @@ export default class PostListController {
                 window.scroll(0, scrollY);
             }
             this.element.querySelectorAll('.link').forEach(link => {
-                console.log('CLICK ON LINK')
                 link.addEventListener('click', (e) => {
                     // Remember scrollY position
                     const scrollY = e.pageY - e.clientY;
