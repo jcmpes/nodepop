@@ -9,7 +9,8 @@ export default class RegisterFormController {
 
     newEventListener() {
         const submit = this.element.querySelector('#submit-btn')
-        submit.addEventListener('click', () => {
+        this.element.addEventListener('submit', async (e) => {
+            e.preventDefault()
             const userData = {
                 username: this.element.elements.name.value,
                 email: this.element.elements.email.value,

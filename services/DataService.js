@@ -23,7 +23,31 @@ export default {
             } else {
                 throw new Error('ERROR CONSULTANDO EL ANUNCIO EN LA API')
             }    
-    }
+    },
+
+    registerUser: async function(userData) {
+        const url = `${BASE_URL}/auth/register`;
+        const request = {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        }
+        try {
+            const response = await fetch(url, request);
+            const data = await response.json();
+            if (response.ok) {
+                return data
+            } else {
+                throw new Error(data.status, data.message)
+            }
+        } catch (error) {
+            throw new Error('ERROR WHILE REGISTERING THE USER')
+        }
+    },
+
+
 
 
 }

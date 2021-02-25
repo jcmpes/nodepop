@@ -1,4 +1,4 @@
-import 
+import RegisterFormController from './controllers/RegisterFormController.js'
 
 
 window.addEventListener('DOMContentLoaded', () => {
