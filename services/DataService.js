@@ -69,6 +69,33 @@ export default {
 
     saveToken: async function(accessToken) {
         localStorage.setItem('accessToken', accessToken)
+    },
+
+    getToken: async function() {
+        return localStorage.getItem('accessToken');
+    },
+
+    getUser: async function() {
+        try {
+            const accessToken = await this.getToken();
+            const arr = accessToken.split('.');
+            const payload = arr[1];
+            const str = atob(payload);
+            const json =  JSON.parse(str);
+            const { userId, username } = json;
+            return { userId, username }
+        } catch (error) {
+            return null;
+        }
+    },
+
+    logout: async function() {
+        try {
+            localStorage.removeItem('accessToken');
+            console.log('USER LOGGED OUT')
+        } catch (err) {
+            throw new Error('ERROR WHILE TRYING TO LOG OUT')
+        }
     }
 
 
