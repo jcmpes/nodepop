@@ -108,3 +108,26 @@ animation-delay: -0.15s;
     }
   }
   
+/* 
+* Notifications
+*/
+@keyframes hideMessage {
+  0% {
+    opacity: 1;
+    height: 44px;
+    line-height: 100%;
+  }
+  50% {
+    opacity: 0;
+    height: 44px;
+    line-height: 100%;
+
+  }
+  100% {
+    opacity: 0;
+    height: 0px;
+    line-height: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
+}

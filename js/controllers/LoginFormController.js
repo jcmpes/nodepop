@@ -25,7 +25,8 @@ export default class LoginFormController {
             try {
                 const data = await dataService.loginUser(userData);
                 const accessToken = data.accessToken;
-                await dataService.saveToken(accessToken)               
+                await dataService.saveToken(accessToken);
+                window.location.href = '/index.html'              
             } catch (error) {
                 pubSub.publish('Error', error)
             }
