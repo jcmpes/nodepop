@@ -5,11 +5,21 @@ export default class OptionsController {
 
     constructor(element) {
         this.element = element;
-        this.renderOptions();
+        if(this.checkToken()) {
+            this.renderOptions();
+        }
     }
 
     renderOptions() {
         this.element.innerHTML = optionsView()
+    }
+
+    checkToken() {
+        if (localStorage.getItem('accessToken')) {
+            return true
+        } else {
+            return false;
+        }
     }
 }
 
