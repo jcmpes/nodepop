@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
     const loader = document.querySelector('.lds-ring')
     new LoaderController(loader)
 
+
     const hero = document.querySelector('.hero')
     new HeroController(hero, "Venta")
     

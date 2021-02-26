@@ -5,7 +5,7 @@
     font-size: .8rem;
 }
 
-.hero > .title {
+.hero > .title { 
     display: flex;
 }
 

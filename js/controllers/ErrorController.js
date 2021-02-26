@@ -1,21 +1,21 @@
 import pubSub from '../../services/PubSub.js'
+import BaseController from '../controllers/BaseController.js'
 
-export default class ErrorController {
+export default class ErrorController extends BaseController {
     
     constructor(element) {
-        // this.showLogic();
-        this.element = element;
-        
 
-        pubSub.subscribe('Error', () => {
+        super(element);      
+
+        this.subscribe(this.topics.ERROR, () => {
             this.hideMessageAfterMiliseconds(3000);
             this.deleteButtonHandler();
-            this.showMesssage("Error: User not authorized")
-        })
+            this.showMesssage("Error: User not authorized");
+        });
     }
     
     showMesssage(msg) {
-        this.element.querySelector('.message-string').innerHTML = msg
+        this.element.querySelector('.message-string').innerHTML = msg;
         this.element.classList.remove('is-hidden');
     }
 

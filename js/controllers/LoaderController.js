@@ -1,14 +1,15 @@
-import pubSub from '../../services/PubSub.js'
+import pubSub from '../../services/PubSub.js';
+import BaseController from '../controllers/BaseController.js';
 
-export default class LoaderController {
+export default class LoaderController extends BaseController {
     constructor(element) {
-        this.element = element;
+        super(element);
 
-        pubSub.subscribe('loading', () => {
+        this.subscribe(this.topics.LOADING, () => {
             this.element.classList.remove('is-hidden');
         });
         
-        pubSub.subscribe('loaded', () => {
+        this.subscribe(this.topics.LOADED, () => {
             this.element.classList.add('is-hidden')
         });
     }

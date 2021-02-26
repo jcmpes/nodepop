@@ -21,7 +21,8 @@
     font-size: 3rem;
 }
 
-.options button:focus {
+.options button:focus,
+.options button:hover {
     background-color: #b1df54;
     outline: 0;
 }

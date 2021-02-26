@@ -3,16 +3,22 @@ import pubSub from '../../services/PubSub.js';
 import { registerView } from '../views/registerView.js';
 import { loginView } from '../views/loginView.js';
 import LoginFormController from '../controllers/LoginFormController.js'
+import BaseController from '../controllers/BaseController.js'
 
-export default class RegisterFormController {
+export default class RegisterFormController extends BaseController {
 
     constructor(element) {
-        this.element = element
+        super(element)
+
         this.renderRegisterForm();
         this.actionsEventListener();
 
-        pubSub.subscribe('login', () => {
+        this.subscribe('login', () => {
             new LoginFormController(this.element);
+        });
+
+        this.subscribe(this.topics.LOADING, () => {
+            
         })
     };
 
@@ -29,8 +35,15 @@ export default class RegisterFormController {
                     mobile: this.element.elements.mobile.value,
                     password: this.element.elements.password.value
                 }
-                const data = await dataService.registerUser(userData);
-                this.renderLogInForm();
+                this.publish(this.topics.LOADING)
+                try{
+                    const data = await dataService.registerUser(userData);
+                    this.renderLogInForm();
+                } catch (error) {
+                    pubSub.publish(this.topics.ERROR)
+                } finally {
+                    pubSub.publish(this.topics.LOADED)
+                }
             }
         });
         // Show login form

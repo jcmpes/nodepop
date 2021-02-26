@@ -3,11 +3,12 @@ import pubSub from '../../services/PubSub.js';
 import { registerView } from '../views/registerView.js';
 import { loginView } from '../views/loginView.js';
 import ErrorController from './ErrorController.js';
+import BaseController from './BaseController.js';
 
-export default class LoginFormController {
+export default class LoginFormController extends BaseController{
 
     constructor(element) {
-        this.element = element
+        super(element)
         this.renderLoginForm();
         this.loginEventListener();
 
@@ -22,13 +23,16 @@ export default class LoginFormController {
                 username: this.element.elements.name.value,
                 password: this.element.elements.password.value
             }
+            this.publish(this.topics.LOADING)
             try {
-                const data = await dataService.loginUser(userData);
+                const data = await dataServices.loginUser(userData);
                 const accessToken = data.accessToken;
                 await dataService.saveToken(accessToken);
                 window.location.href = '/index.html'              
             } catch (error) {
-                pubSub.publish('Error', error)
+                this.publish(this.topics.ERROR)
+            } finally {
+                this.publish(this.topics.LOADED)
             }
         });
     };
