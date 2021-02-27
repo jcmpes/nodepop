@@ -10,7 +10,6 @@ export default class NewPostFormController extends BaseController {
     constructor(element) {
         super(element)
 
-        this.element.innerHTML = newPostView();
 
         this.subscribe(this.topics.NEW_POST, () => {
             
@@ -19,54 +18,46 @@ export default class NewPostFormController extends BaseController {
         this.subscribe(this.topics.LOADING, () => {
             
         })
+
+        this.element.innerHTML = newPostView()
+        this.imageSelectedEventListener();
+        this.submitEventListener();
     };
 
-    actionsEventListener() {
-        // Submit registration 
+    submitEventListener() {
         this.element.addEventListener('submit', async (e) => {
-            if (e.submitter.id == "submit-btn") {
-                // Only for the register form
-                e.preventDefault()
-                console.log(e)
-                const postData = {
-                    username: this.element.elements.name.value,
-                    email: this.element.elements.email.value,
-                    mobile: this.element.elements.mobile.value,
-                    password: this.element.elements.password.value
-                }
-                this.publish(this.topics.LOADING)
-                try{
-                    const data = await dataService.registerUser(userData);
-                    this.renderLogInForm();
-                } catch (error) {
-                    pubSub.publish(this.topics.ERROR)
-                } finally {
-                    pubSub.publish(this.topics.LOADED)
-                }
-            }
-        });
-        // Show login form
-        const loginLink = this.element.querySelector('.login-link');
-        loginLink.addEventListener('click', (e) => {
             e.preventDefault();
-            pubSub.publish('login', {})
-            // this.renderLogInForm();
 
+            const postData = {
+                type: this.element.elements.type.value,
+                title: this.element.elements.title.value,
+                price: this.element.elements.price.value,
+                description: this.element.elements.description.value,
+            };
+
+            if (this.element.elements.image.files.length > 0) {
+                postData.image = this.element.elements.image.files[0];
+            };
+            this.publish(this.topics.LOADING);
+            try {
+                await dataService.savePost(postData);
+                window.location.href = '/?message=postSaved';
+            } catch (error) {
+                this.publish(this.topics.ERROR, error);
+            } finally {
+                this.publish(this.topics.LOADED);
+            }
         })
     };
 
-    renderRegisterForm() {
-        this.element.innerHTML = registerView();
-    };
-
-    renderLogInForm() {
-        this.element.innerHTML = loginView();
-        
-    };
-
-    submitLogInEventListener() {
-        
+    imageSelectedEventListener() {
+        const fileField = document.querySelector('.file-input');
+        console.log(fileField)
+        const fileNameSpan = this.element.querySelector('.file-name')
+        fileField.addEventListener('change', () => {
+            const fileName = fileField.files[0].name;
+            fileNameSpan.innerHTML = fileName;
+        })
     }
-
     
 }

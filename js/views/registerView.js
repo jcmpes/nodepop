@@ -75,10 +75,10 @@ export const registerView = () => {
         </div>
 
         <div class="field is-horizontal">                
-                <button id="submit-btn" class="button is-primary">
-                    Register
-                </button>
-                <p class="is-pulled-right">Already registered? <a class="login-link" href="">Log in</a></p>               
+            <button id="submit-btn" class="button is-primary">
+                Register
+            </button>
+            <p class="is-pulled-right">Already registered? <a class="login-link" href="">Log in</a></p>               
         </div>      
  
     `

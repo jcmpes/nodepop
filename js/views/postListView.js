@@ -4,7 +4,7 @@ export const postListView = (post) => {
             <div class="card-image">
                 <div class="link" href="${post.id}">
                     <figure class="image is-4by3">
-                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                        <img src="${ post.image ? post.image : 'https://bulma.io/images/placeholders/1280x960.png' }" alt="Placeholder image">
                     </figure>
                 </div>
             </div>

@@ -7,7 +7,9 @@ export const optionsView = (user) => {
                 <i class="fas fa-sign-out-alt logout"></i>
             </div>
             <div class="new-post">
-                <button class="is-primary is-rounded"><i class="fas fa-plus"></i></button>
+                <a href="/newPost.html"> 
+                    <button class="is-primary is-rounded"><i class="fas fa-plus"></i></button>
+                </a>
             </div>
         `
     } else {

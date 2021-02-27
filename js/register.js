@@ -10,9 +10,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const hero = document.querySelector('.hero')
     new HeroController(hero, "Register New User")
 
-    const registerForm = document.querySelector('.user-form')
-    new RegisterFormController(registerForm)
-
     const error = document.querySelector('.message');
     new ErrorController(error)
+
+    const registerForm = document.querySelector('.user-form')
+    new RegisterFormController(registerForm)
+    
 })

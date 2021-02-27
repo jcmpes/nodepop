@@ -25,12 +25,13 @@ export default class LoginFormController extends BaseController{
             }
             this.publish(this.topics.LOADING)
             try {
-                const data = await dataServices.loginUser(userData);
+                const data = await dataService.loginUser(userData);
                 const accessToken = data.accessToken;
                 await dataService.saveToken(accessToken);
                 window.location.href = '/index.html'              
             } catch (error) {
                 this.publish(this.topics.ERROR)
+                console.log('Error trying to log in')
             } finally {
                 this.publish(this.topics.LOADED)
             }

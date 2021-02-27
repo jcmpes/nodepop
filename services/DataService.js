@@ -96,6 +96,71 @@ export default {
         } catch (err) {
             throw new Error('ERROR WHILE TRYING TO LOG OUT')
         }
+    },
+
+    uploadImage: async function(image) {
+        const form = new FormData();
+        form.append('file', image);
+        const url = `${BASE_URL}/upload`;
+
+        // Create the post request
+        const config = {
+            method: 'POST',
+            headers: {},
+            body: form
+        };
+        // Add accessToken to request
+        const accessToken = await this.getToken();
+        if(accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`
+        };
+        // Actually perform the request
+        try {
+            const response = await fetch(url, config);
+            const data = await response.json()
+            if(response.ok) {
+                return data.path;
+            } else {
+                throw new Error(response.status, response.message)
+            }
+        } catch (error) {
+            return error
+        }
+    },
+
+    savePost: async function(postData) {
+        const url = `${BASE_URL}/api/posts`;
+        if(postData.image) {
+            const imageURL = await this.uploadImage(postData.image);
+            postData.image = imageURL;
+            debugger;
+            console.log(imageURL)
+        }
+        // Create the post request
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(postData)
+        };
+        // Add accessToken to request
+        const accessToken = await this.getToken();
+        if(accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`
+        };
+        // Actually perform the request
+        try {
+            const response = await fetch(url, config);
+            const data = await response.json();
+            if(response.ok) {
+                return data;
+            } else {
+                throw new Error(data.status, data.message)
+            }
+        } catch (error) {
+            return error
+        }
     }
 
 
