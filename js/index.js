@@ -7,12 +7,11 @@ window.addEventListener('DOMContentLoaded', async (e) => {
     const loader = document.querySelector('.lds-ring')
     new LoaderController(loader)
 
-
     const hero = document.querySelector('.hero')
     new HeroController(hero, "Venta")
     
-    const postList = document.querySelector('.main');
-    const postListController = new PostListController(postList);
+    const main = document.querySelector('.main');
+    const postListController = new PostListController(main);
 
     const options = document.querySelector('.options');
     new OptionsController(options)

@@ -41,7 +41,7 @@ export const registerView = () => {
                     <div class="field has-addons">
                         <p class="control">
                             <a class="button is-static">
-                                +44
+                                +34
                             </a>
                         </p>
                         <p class="control is-expanded">

@@ -9,6 +9,7 @@ export default class BaseController {
             LOADING: 'loading',
             LOADED: 'loaded',
             ERROR: 'error',
+            NEW_POST: 'newPost'
         }
     }
 
@@ -19,5 +20,5 @@ export default class BaseController {
     publish(eventName, eventHandler) {
         this.pubSub.publish(eventName, eventHandler);
     }
-    
+
 }
