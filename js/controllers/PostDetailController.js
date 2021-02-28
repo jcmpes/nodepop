@@ -21,10 +21,10 @@ export default class PostDetailController extends BaseController {
         this.loadPost(context.linkTo)
             .then(() => {
             this.element.querySelector('#back-btn').addEventListener('click', () => {
-                this.goBack(context.scrollY);
+                this.goBack(context.mode, context.scrollY);
             });
             this.removePostEventListener().then(() => {
-                this.goBack(context.scrollY)
+                this.goBack(context.mode, context.scrollY)
 
             })
         })
@@ -71,9 +71,9 @@ export default class PostDetailController extends BaseController {
         });
     }
 
-    goBack(scrollY) {
+    goBack(mode, scrollY) {
         this.element.innerHTML = '';
-        new PostListController(this.element, scrollY, this.topics.POST_DELETED)
+        new PostListController(this.element, mode, scrollY, this.topics.POST_DELETED)
         
     }
 

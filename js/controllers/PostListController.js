@@ -27,7 +27,27 @@ export default class PostListController extends BaseController{
 
         this.subscribe(this.topics.LOAD_COMPRA, () => {
             this.element.innerHTML = '';
-            this.loadPosts("Compra")
+            this.loadPosts("Compra").then(() => {
+                // Listen for a click on a post
+                if(this.scrollY != 0) {
+                    window.scroll(0, scrollY);
+                }
+                this.element.querySelectorAll('.link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        // Remember scrollY position
+                        this.mode = 'Compra'
+                        const scrollY = e.pageY - e.clientY;
+                        const linkTo = e.target.parentElement.parentElement.attributes.href.value;
+                        const context = {
+                            'scrollY': scrollY,
+                            'linkTo': linkTo,
+                            'mode': this.mode
+                        }
+                        pubSub.publish('detail', context)
+                    })
+    
+                })
+            })
         })
 
         if(message) {
@@ -53,7 +73,8 @@ export default class PostListController extends BaseController{
                     const linkTo = e.target.parentElement.parentElement.attributes.href.value;
                     const context = {
                         'scrollY': scrollY,
-                        'linkTo': linkTo
+                        'linkTo': linkTo,
+                        'mode': this.mode
                     }
                     pubSub.publish('detail', context)
                 })
@@ -64,7 +85,7 @@ export default class PostListController extends BaseController{
     }
 
     async loadPosts(mode) {
-        pubSub.publish('loading', {})
+        this.publish(this.topics.LOADING, {})
         try {
             const data = await dataService.getPosts(mode);
             // Format date and
@@ -90,7 +111,7 @@ export default class PostListController extends BaseController{
             this.element.appendChild(error);     
             throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
         } finally {
-            pubSub.publish('loaded', {})
+            this.publish(this.topics.LOADED, {})
         }       
     }
 
