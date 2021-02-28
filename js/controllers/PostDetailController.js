@@ -76,10 +76,13 @@ export default class PostDetailController {
         return new Promise((resolve, reject) => {
             if(this.element.querySelector('.remove-post')) {
                 const removeBtn = this.element.querySelector('.remove-post');
-                removeBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    resolve(dataService.deletePost(this.context.linkTo));
-                })
+                
+                    removeBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (window.confirm("Tu anuncio será eliminado. Los otros usuarios dejarán de poder verlo. ¿Seguro que desas eliminar tu anuncio?")) {
+                            resolve(dataService.deletePost(this.context.linkTo));
+                        }
+                    })
             }
         })
         
