@@ -30,28 +30,27 @@ export default class PostListController extends BaseController{
             this.mode = "Compra"
             this.element.innerHTML = '';
             this.loadPosts(this.mode)
-            debugger
-            // .then(() => {
-            //     // Listen for a click on a post
-            //     if(this.scrollY != 0) {
-            //         window.scroll(0, scrollY);
-            //     }
-            //     this.element.querySelectorAll('.link').forEach(link => {
-            //         link.addEventListener('click', (e) => {
-            //             // Remember scrollY position
-            //             this.mode = 'Compra'
-            //             const scrollY = e.pageY - e.clientY;
-            //             const linkTo = e.target.parentElement.parentElement.attributes.href.value;
-            //             const context = {
-            //                 'scrollY': scrollY,
-            //                 'linkTo': linkTo,
-            //                 'mode': this.mode
-            //             }
-            //             this.publish('detail', context)
-            //         })
+            .then(() => {
+                // Listen for a click on a post
+                if(this.scrollY != 0) {
+                    window.scroll(0, scrollY);
+                }
+                this.element.querySelectorAll('.link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        // Remember scrollY position
+                        this.mode = 'Compra'
+                        const scrollY = e.pageY - e.clientY;
+                        const linkTo = e.target.parentElement.parentElement.attributes.href.value;
+                        const context = {
+                            'scrollY': scrollY,
+                            'linkTo': linkTo,
+                            'mode': this.mode
+                        }
+                        this.publish('detail', context)
+                    })
     
-            //     })
-            // })
+                })
+            })
         })
 
         if(message) {
