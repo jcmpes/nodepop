@@ -43,7 +43,7 @@ export default class HeroController extends BaseController {
     }
     
     async showHtml() {
-            this.element.innerHTML = heroView(this.subtitle, this.user);
+        this.element.innerHTML = heroView(this.subtitle, this.user);
     }
 
     userLogoutEventListener() {

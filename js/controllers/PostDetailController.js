@@ -73,7 +73,7 @@ export default class PostDetailController extends BaseController {
 
     goBack(mode, scrollY) {
         this.element.innerHTML = '';
-        
+        // this.publish(this.topics.GO_BACK, { mode, scrollY, msg: this.topics.POST_DELETED })
         new PostListController(this.element, mode, scrollY, this.topics.POST_DELETED)
         
     }

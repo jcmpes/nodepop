@@ -12,7 +12,8 @@ export default class BaseController {
             ERROR: 'error',
             NEW_POST: 'newPost',
             POST_DELETED: 'deletedPost',
-            LOAD_COMPRA: 'load_compra'
+            LOAD_COMPRA: 'loadCompra',
+            GO_BACK: 'goBack'
         }
     }
 
