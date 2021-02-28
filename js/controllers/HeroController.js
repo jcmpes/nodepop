@@ -32,6 +32,7 @@ export default class HeroController extends BaseController {
                 await this.showHtml().then(() => {
                     this.typeSelectorEventListener();
                     this.compraEventListener();
+                    this.ventaEventListener()
                 });
                 this.userLogoutEventListener();
             });
@@ -81,8 +82,16 @@ export default class HeroController extends BaseController {
     compraEventListener() {
         const compraLink = this.element.querySelector('.compra-selector');
         compraLink.addEventListener('click', (e) => {
-            console.log(e)
+            this.element.querySelector('.selector').classList.toggle('is-hidden')
             this.publish(this.topics.LOAD_COMPRA, {})
+        })
+    }
+
+    ventaEventListener() {
+        const ventaLink = this.element.querySelector('.venta-selector');
+        ventaLink.addEventListener('click', e => {
+            this.element.querySelector('.selector').classList.toggle('is-hidden')
+            window.location.href = '/index.html'
         })
     }
 }
