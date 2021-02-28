@@ -161,7 +161,14 @@ export default {
         } catch (error) {
             return error
         }
-    }
+    },
+
+    getAuthor: async function(userId) {
+        const url = `${BASE_URL}/api/users/${userId}`
+        const response = await fetch(url)
+        const data = await response.json();
+        return data['username']
+    } 
 
 
 

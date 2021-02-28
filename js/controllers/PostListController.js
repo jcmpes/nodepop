@@ -47,11 +47,22 @@ export default class PostListController {
         pubSub.publish('loading', {})
         try {
             const data = await dataService.getPosts();
-            // Format date
-            data.map((post) => {
-                const serverFormat = post.updatedAt;
-                post.updatedAt = serverFormat.replace(/T([^Z]*)Z/, '')
-            })
+            // Format date and
+            data.map(async (post) => {
+                const dateServerFormat = post.updatedAt;
+                post.updatedAt = dateServerFormat.replace(/T([^Z]*)Z/, '');    
+            });
+            // Add post author (@kas: ¿ PORQUE NO PUEDO HACER ESTO CON .map ó .forEach ?)
+            for (let i = 0; i < data.length; i++) {
+                data[i]['author'] = await dataService.getAuthor(data[i]['userId']);
+            };
+
+            // arr.forEach(async post => {
+            //     const userServerFormat = post.userId;
+            //     const postAuthor = await dataService.getAuthor(userServerFormat)
+            //     post.author = postAuthor
+            // })
+
             this.render(data, "Venta")
         // Control error if data is not received
         } catch (err) {
