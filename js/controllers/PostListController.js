@@ -4,21 +4,34 @@ import { postListView } from '../views/postListView.js';
 import { errorView } from '../views/errorView.js'
 import PostDetailController from './PostDetailController.js';
 import BaseController from './BaseController.js';
+import MessageController from './MessageController.js';
 
 const POSTS_ERROR = 'posts_err';
 const API_ERROR = 'api_err';
 
 export default class PostListController extends BaseController{
 
-    constructor(element, scrollY=0) {
+    constructor(element, scrollY=0, message) {
         super(element)
         this.element = element;
         this.scrollY = scrollY;
+        
+        const messageArticle = document.querySelector('.message');
+        new MessageController(messageArticle);
         // Create an instance of detail view when 'detail' event is heard
         this.subscribe('detail', (context) => {
             // Instance a new post detail object passing the page scroll information
             new PostDetailController(this.element, context)
         })
+
+        if(message) {
+            this.publish(message)
+        }
+
+        if(this.message != null) {
+            debugger;
+            this.publish(this.topics.NEW_POST)
+        }
 
         // Load posts
         this.element.innerHTML = '';

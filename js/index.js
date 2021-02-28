@@ -14,8 +14,10 @@ window.addEventListener('DOMContentLoaded', async (e) => {
     const main = document.querySelector('.main');
     new PostListController(main);
 
+    const message = document.querySelector('.message');
+    new MessageController(message);
 
     const options = document.querySelector('.options');
-    new OptionsController(options)
+    new OptionsController(options);
 
 })

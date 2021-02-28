@@ -7,15 +7,14 @@ export default class MessageController extends BaseController {
 
         super(element);      
 
-        this.subscribe(this.topics.MESSAGE, () => {
-            debugger
+        this.subscribe(this.topics.POST_DELETED, () => {
             this.hideMessageAfterMiliseconds(3000);
             this.deleteButtonHandler();
             this.showMesssage('Has eliminado tu anuncio');
         });
 
     }
-    
+
     showMesssage(msg) {
         this.element.querySelector('.message-string').innerHTML = msg;
         this.element.classList.remove('is-hidden');

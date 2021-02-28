@@ -24,8 +24,8 @@ export default class PostDetailController extends BaseController {
                 this.goBack(context.scrollY);
             });
             this.removePostEventListener().then(() => {
-                this.goBack(context.scrollY);
-                this.publish(this.topics.MESSAGE, {})
+                this.goBack(context.scrollY)
+
             })
         })
 
@@ -34,7 +34,7 @@ export default class PostDetailController extends BaseController {
     }
 
     async loadPost(id) {
-        pubSub.publish('loading', {})
+        this.publish(this.topics.LOADING, {})
         try {
             const data = await dataService.getSinglePost(id)
             // Format date
@@ -56,7 +56,7 @@ export default class PostDetailController extends BaseController {
             })
             throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
         } finally {
-            pubSub.publish('loaded', {});
+            this.publish(this.topics.LOADED, {});
         }
     }
 
@@ -73,23 +73,21 @@ export default class PostDetailController extends BaseController {
 
     goBack(scrollY) {
         this.element.innerHTML = '';
-        new PostListController(this.element, scrollY)
-        const message = document.querySelector('.message');
-        new MessageController(message)
-
+        new PostListController(this.element, scrollY, this.topics.POST_DELETED)
+        
     }
 
     removePostEventListener() {
         return new Promise((resolve, reject) => {
             if(this.element.querySelector('.remove-post')) {
                 const removeBtn = this.element.querySelector('.remove-post');
-                
-                    removeBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        if (window.confirm("Tu anuncio será eliminado. Los otros usuarios dejarán de poder verlo. ¿Seguro que desas eliminar tu anuncio?")) {
-                            resolve(dataService.deletePost(this.context.linkTo));
-                        }
-                    })
+                removeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (window.confirm("Tu anuncio será eliminado. Los otros usuarios dejarán de poder verlo. ¿Seguro que desas eliminar tu anuncio?")) {
+                        resolve(dataService.deletePost(this.context.linkTo));
+                        
+                    }
+                })
             }
         })
         

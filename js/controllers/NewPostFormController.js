@@ -10,15 +10,6 @@ export default class NewPostFormController extends BaseController {
     constructor(element) {
         super(element)
 
-
-        this.subscribe(this.topics.NEW_POST, () => {
-            
-        });
-
-        this.subscribe(this.topics.LOADING, () => {
-            
-        })
-
         this.element.innerHTML = newPostView()
         this.imageSelectedEventListener();
         this.submitEventListener();
@@ -41,7 +32,7 @@ export default class NewPostFormController extends BaseController {
             this.publish(this.topics.LOADING);
             try {
                 await dataService.savePost(postData);
-                window.location.href = '/?message=postSaved';
+                window.location.href = '/'
             } catch (error) {
                 this.publish(this.topics.ERROR, error);
             } finally {
@@ -59,5 +50,6 @@ export default class NewPostFormController extends BaseController {
             fileNameSpan.innerHTML = fileName;
         })
     }
+
     
 }
