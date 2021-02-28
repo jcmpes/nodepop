@@ -2,6 +2,7 @@ import pubSub from '../../services/PubSub.js';
 import dataService from '../../services/DataService.js'
 import { heroView } from '../views/heroView.js'
 import BaseController from '../controllers/BaseController.js'
+import PostListController from './PostListController.js';
 
 export default class HeroController extends BaseController {
     constructor(element, subtitle) {
@@ -10,14 +11,13 @@ export default class HeroController extends BaseController {
 
         const ellipsis = this.element.querySelector('.lds-ellipsis');
         this.user = {}
-        this.renderHero();
+        this.renderHero()
 
-        
     }
 
     async renderHero() {
         if(await dataService.getToken() != null) {
-            this.getUser().then(() => {
+            this.getUser().then(async () => {
 
                 this.subscribe(this.topics.LOADING, () => {
                     this.element.querySelector('.title').innerHTML = 'Esperando <div class="lds-ellipsis is-hidden"><div></div><div></div><div></div><div></div></div>';
@@ -29,7 +29,10 @@ export default class HeroController extends BaseController {
                     this.element.querySelector('.title').innerHTML = 'Nodepop <div class="lds-ellipsis is-hidden"><div></div><div></div><div></div><div></div></div>'
         
                 })
-                this.element.innerHTML = heroView(this.subtitle, this.user);
+                await this.showHtml().then(() => {
+                    this.typeSelectorEventListener();
+                    this.compraEventListener();
+                });
                 this.userLogoutEventListener();
             });
         } else {         
@@ -37,8 +40,10 @@ export default class HeroController extends BaseController {
             this.userLoginEventListerner()
         }
     }
-
     
+    async showHtml() {
+            this.element.innerHTML = heroView(this.subtitle, this.user);
+    }
 
     userLogoutEventListener() {
         const logoutBtn = this.element.querySelector('.logout');
@@ -60,5 +65,24 @@ export default class HeroController extends BaseController {
         this.user = user;
         console.log(this.user)
         return user;         
+    }
+
+    typeSelectorEventListener() {
+        const arrow = this.element.querySelectorAll('.type-select');
+        arrow.forEach(item => {
+            item.addEventListener('click', (e) => {
+                console.log(e)
+                this.element.querySelector('.selector').classList.toggle('is-hidden')
+            })
+        
+        })    
+    }
+
+    compraEventListener() {
+        const compraLink = this.element.querySelector('.compra-selector');
+        compraLink.addEventListener('click', (e) => {
+            console.log(e)
+            this.publish(this.topics.LOAD_COMPRA, {})
+        })
     }
 }

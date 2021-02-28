@@ -11,9 +11,10 @@ const API_ERROR = 'api_err';
 
 export default class PostListController extends BaseController{
 
-    constructor(element, scrollY=0, message) {
+    constructor(element, mode, scrollY=0, message) {
         super(element)
         this.element = element;
+        this.mode = mode;
         this.scrollY = scrollY;
         
         const messageArticle = document.querySelector('.message');
@@ -22,6 +23,11 @@ export default class PostListController extends BaseController{
         this.subscribe('detail', (context) => {
             // Instance a new post detail object passing the page scroll information
             new PostDetailController(this.element, context)
+        })
+
+        this.subscribe(this.topics.LOAD_COMPRA, () => {
+            this.element.innerHTML = '';
+            this.loadPosts("Compra")
         })
 
         if(message) {
@@ -35,7 +41,7 @@ export default class PostListController extends BaseController{
 
         // Load posts
         this.element.innerHTML = '';
-        this.loadPosts('Venta').then(() => {
+        this.loadPosts(this.mode).then(() => {
             // Listen for a click on a post
             if(this.scrollY != 0) {
                 window.scroll(0, scrollY);
@@ -57,10 +63,10 @@ export default class PostListController extends BaseController{
 
     }
 
-    async loadPosts(type) {
+    async loadPosts(mode) {
         pubSub.publish('loading', {})
         try {
-            const data = await dataService.getPosts();
+            const data = await dataService.getPosts(mode);
             // Format date and
             data.map(async (post) => {
                 const dateServerFormat = post.updatedAt;
@@ -76,8 +82,7 @@ export default class PostListController extends BaseController{
             //     const postAuthor = await dataService.getAuthor(userServerFormat)
             //     post.author = postAuthor
             // })
-
-            this.render(data, "Venta")
+            this.render(data, this.mode)
         // Control error if data is not received
         } catch (err) {
             const error = document.createElement('div');
@@ -89,7 +94,7 @@ export default class PostListController extends BaseController{
         }       
     }
 
-     render(posts, type) {
+     render(posts) {
         // State to show when the posts array is empty
         if (posts.length == 0) {
             const error = document.createElement('div');
@@ -97,11 +102,11 @@ export default class PostListController extends BaseController{
             this.element.appendChild(error)
         }
         for (const post of posts) {
-            if (post.type == type) {
-                const article = document.createElement('article');
-                article.innerHTML = postListView(post)
-                this.element.appendChild(article);
-            }
+
+            const article = document.createElement('article');
+            article.innerHTML = postListView(post)
+            this.element.appendChild(article);
+
         }
     }
 

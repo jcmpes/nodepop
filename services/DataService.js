@@ -2,12 +2,12 @@ const BASE_URL = 'http://localhost:8000'
 
 export default {
 
-    getPosts: async function() {
+    getPosts: async function(mode) {
         const url = `${BASE_URL}/api/posts`
         const response = await fetch(url);
         if(response.ok) {
             const data = await response.json();
-            return data;
+            return data.filter(post => post.type == mode)
         // Throw error if data received is not status code 200 (OK)
         } else {
             throw new Error(response.status, 'ERROR CONSULTANDO A LA API DE ANUNCIOS')

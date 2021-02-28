@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
     new HeroController(hero, "Venta")
     
     const main = document.querySelector('.main');
-    new PostListController(main);
+    new PostListController(main, "Venta");
 
     const message = document.querySelector('.message');
     new MessageController(message);
