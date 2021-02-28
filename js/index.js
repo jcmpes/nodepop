@@ -2,6 +2,7 @@ import PostListController from './controllers/PostListController.js';
 import LoaderController from './controllers/LoaderController.js';
 import HeroController from './controllers/HeroController.js';
 import OptionsController from './controllers/OptionsController.js';
+import MessageController from './controllers/ErrorController.js'
 
 window.addEventListener('DOMContentLoaded', async (e) => {
     const loader = document.querySelector('.lds-ring')
@@ -12,6 +13,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
     
     const main = document.querySelector('.main');
     new PostListController(main);
+
 
     const options = document.querySelector('.options');
     new OptionsController(options)

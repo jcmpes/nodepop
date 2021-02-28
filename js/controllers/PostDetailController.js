@@ -3,24 +3,29 @@ import pubSub from '../../services/PubSub.js'
 import { postDetailView } from '../views/postDetailView.js'
 import { errorView } from '../views/errorView.js'
 import PostListController from './PostListController.js'
+import BaseController from './BaseController.js'
+import MessageController from './MessageController.js'
 
 
 const POSTS_ERROR = 'posts_err';
 const API_ERROR = 'api_err';
 
-export default class PostDetailController {
+export default class PostDetailController extends BaseController {
 
     constructor(element, context) {
+        super(element)
         this.element = element;
         this.context = context;
 
+        
         this.loadPost(context.linkTo)
             .then(() => {
             this.element.querySelector('#back-btn').addEventListener('click', () => {
                 this.goBack(context.scrollY);
             });
             this.removePostEventListener().then(() => {
-                this.goBack(context.scrollY)
+                this.goBack(context.scrollY);
+                this.publish(this.topics.MESSAGE, {})
             })
         })
 
@@ -69,6 +74,8 @@ export default class PostDetailController {
     goBack(scrollY) {
         this.element.innerHTML = '';
         new PostListController(this.element, scrollY)
+        const message = document.querySelector('.message');
+        new MessageController(message)
 
     }
 

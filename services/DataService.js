@@ -183,7 +183,7 @@ export default {
             headers: {
                 'Content-Type': 'application/json' 
             },
-            body: null
+            body: JSON.stringify(postData)
         };
         // Add accessToken to request
         const accessToken = await this.getToken();

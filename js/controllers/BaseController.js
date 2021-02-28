@@ -10,6 +10,7 @@ export default class BaseController {
             LOADING: 'loading',
             LOADED: 'loaded',
             ERROR: 'error',
+            MESSAGE: 'message',
             NEW_POST: 'newPost'
         }
     }
