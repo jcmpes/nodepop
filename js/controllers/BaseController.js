@@ -1,4 +1,5 @@
 import pubSub from '../../services/PubSub.js'
+import dataService from '../../services/DataService.js'
 
 export default class BaseController {
 
@@ -20,5 +21,4 @@ export default class BaseController {
     publish(eventName, eventHandler) {
         this.pubSub.publish(eventName, eventHandler);
     }
-
 }

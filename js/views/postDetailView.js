@@ -1,4 +1,4 @@
-export const postDetailView = (post) => {
+export const postDetailView = (post, user) => {
     return `
         <button id="back-btn" class="button is-rounded">Back</button>
 
@@ -34,14 +34,25 @@ export const postDetailView = (post) => {
                 </div>
             </div>
             <footer class="card-footer">
-                <a href="#" class="card-footer-item">Comprar</a>
-                <a href="#" class="card-footer-item">Contactar</a>
-                <a href="#" class="card-footer-item">
-                    Me gusta
-                    <span class="icon">
-                        <i class="far fa-heart"></i>
-                    </span>
-                </a>
+                ${ post.userId == user.userId ? `
+                    <a href="" class="card-footer-item remove-post">
+                        Eliminar
+                        <span class="icon">
+                            <i class="far fa-trash"></i>
+                        </span>
+                    </a>
+                ` 
+                : `
+                    <a href="#" class="card-footer-item">Comprar</a>
+                    <a href="#" class="card-footer-item">Contactar</a>
+                    <a href="#" class="card-footer-item">
+                        Me gusta
+                        <span class="icon">
+                            <i class="far fa-heart"></i>
+                        </span>
+                    </a>
+                `}
+                
             </footer>
         </div>
     `

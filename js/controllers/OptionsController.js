@@ -20,9 +20,12 @@ export default class OptionsController {
         
     }
 
-
-
-
+    async getUser() {
+        const user = await dataService.getUser()
+        this.user = user;
+        console.log(this.user)
+        return user;         
+    }
     
 }
 

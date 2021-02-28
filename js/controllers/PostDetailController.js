@@ -18,9 +18,13 @@ export default class PostDetailController {
             .then(() => {
             this.element.querySelector('#back-btn').addEventListener('click', () => {
                 this.goBack(context.scrollY);
+            });
+            this.removePostEventListener().then(() => {
+                this.goBack(context.scrollY)
             })
         })
-        // });
+
+        
 
     }
 
@@ -31,7 +35,12 @@ export default class PostDetailController {
             // Format date
             const serverFormat = data.updatedAt;
             data.updatedAt = serverFormat.replace(/T([^Z]*)Z/, '')
-            this.render(data)
+            // Add post author
+            const userId = await dataService.getAuthor(data['userId'])
+            data['author'] = userId
+            // Get userId to send to the view
+            const user = await dataService.getUser()
+            this.render(data, user)
         } catch (err) {
             const error = document.createElement('div');
             error.innerHTML = errorView(API_ERROR, err);
@@ -46,9 +55,9 @@ export default class PostDetailController {
         }
     }
 
-    render(post) {
+    render(post, user) {
         const section = document.createElement('section');
-        section.innerHTML = postDetailView(post);
+        section.innerHTML = postDetailView(post, user);
         const tempHTML = this.element.innerHTML;
         this.element.innerHTML = '';
         new Promise((resolve, reject) => {
@@ -61,5 +70,18 @@ export default class PostDetailController {
         this.element.innerHTML = '';
         new PostListController(this.element, scrollY)
 
+    }
+
+    removePostEventListener() {
+        return new Promise((resolve, reject) => {
+            if(this.element.querySelector('.remove-post')) {
+                const removeBtn = this.element.querySelector('.remove-post');
+                removeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    resolve(dataService.deletePost(this.context.linkTo));
+                })
+            }
+        })
+        
     }
 }

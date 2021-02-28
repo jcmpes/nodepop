@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', async (e) => {
     new HeroController(hero, "Venta")
     
     const main = document.querySelector('.main');
-    const postListController = new PostListController(main);
+    new PostListController(main);
 
     const options = document.querySelector('.options');
     new OptionsController(options)

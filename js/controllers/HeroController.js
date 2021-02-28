@@ -38,12 +38,7 @@ export default class HeroController extends BaseController {
         }
     }
 
-    async getUser() {
-        const user = await dataService.getUser()
-        this.user = user;
-        console.log(this.user)
-        return user;         
-    }
+    
 
     userLogoutEventListener() {
         const logoutBtn = this.element.querySelector('.logout');
@@ -58,5 +53,12 @@ export default class HeroController extends BaseController {
         loginBtn.addEventListener('click', () => {
             window.location.href = '/register.html'
         })
+    }
+
+    async getUser() {
+        const user = await dataService.getUser()
+        this.user = user;
+        console.log(this.user)
+        return user;         
     }
 }

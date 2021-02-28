@@ -165,10 +165,44 @@ export default {
 
     getAuthor: async function(userId) {
         const url = `${BASE_URL}/api/users/${userId}`
-        const response = await fetch(url)
-        const data = await response.json();
-        return data['username']
-    } 
+        try {
+            const response = await fetch(url)
+            const data = await response.json();
+            return data['username']
+        } catch (error) {
+            return error
+        }
+        
+    },
+
+    deletePost: async function(id) {
+        const url = `${BASE_URL}/api/posts/${id}`
+        // Create the dlete request
+        const config = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: null
+        };
+        // Add accessToken to request
+        const accessToken = await this.getToken();
+        if(accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`
+        };
+        // Actually perform the request
+        try {
+            const response = await fetch(url, config);
+            const data = await response.json();
+            if(response.ok) {
+                return data;
+            } else {
+                throw new Error(data.status, data.message)
+            }
+        } catch (error) {
+            return error
+        }
+    }
 
 
 
