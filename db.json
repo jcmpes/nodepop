@@ -1,0 +1,122 @@
+{
+  "posts": [
+    {
+      "id": 4,
+      "userId": 9,
+      "title": "iPhone X 256GB",
+      "description": "Busco iPhoneX de 256GB libre.",
+      "price": 350,
+      "type": "Compra",
+      "img": "/images/iPhone.jpeg",
+      "tags": [
+        "Electronica",
+        "Moviles"
+      ],
+      "updatedAt": "2021-02-27T12:05:38.836Z"
+    },
+    {
+      "type": "Venta",
+      "title": "Xiaomi Redmi Note 9 128 GB",
+      "price": "400",
+      "description": "Fantástico y prácticamente nuevo Xiaomi a la venta. Ha sido usado durante sólo dos años y no tiene ningún desperfecto.",
+      "image": "http://localhost:8000/file-1614432100998.png",
+      "userId": 11,
+      "updatedAt": "2021-02-27T13:22:01.782Z",
+      "id": 14
+    },
+    {
+      "type": "Venta",
+      "title": "sdfad",
+      "price": "23",
+      "description": "dfasf",
+      "userId": 9,
+      "updatedAt": "2021-02-28T20:10:53.422Z",
+      "id": 36
+    },
+    {
+      "type": "Venta",
+      "title": "gsdfsdg",
+      "price": "3",
+      "description": "sdfgsdfg",
+      "userId": 9,
+      "updatedAt": "2021-02-28T20:13:59.816Z",
+      "id": 37
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "Juan Carlos Marcos Prieto",
+      "password": "$2b$10$xO5RQMXlYG.BOgJItjZa.u6JrflOxdVhpKa4lSgC4VpQFcwyh3Gg."
+    },
+    {
+      "id": 2,
+      "username": "user1",
+      "email": "jcmpes@gmail.com",
+      "mobile": "659816182",
+      "password": "$2b$10$HHOqQRndqMJ7f8/Nz290F.9dlHxGRO2TxymSXTtvNpG0Y5u018bzC"
+    },
+    {
+      "id": 3,
+      "username": "user2",
+      "email": "dinamica@dinamica.com",
+      "mobile": "234234234",
+      "password": "$2b$10$HHOqQRndqMJ7f8/Nz290F.9dlHxGRO2TxymSXTtvNpG0Y5u018bzC"
+    },
+    {
+      "id": 4,
+      "username": "user3",
+      "email": "jcmpess@gmail.com",
+      "mobile": "3423423",
+      "password": "$2b$10$HHOqQRndqMJ7f8/Nz290F.9dlHxGRO2TxymSXTtvNpG0Y5u018bzC"
+    },
+    {
+      "id": 5,
+      "username": "user4",
+      "email": "jcmpesss@gmail.com",
+      "mobile": "3423423",
+      "password": "$2b$10$HHOqQRndqMJ7f8/Nz290F.9dlHxGRO2TxymSXTtvNpG0Y5u018bzC"
+    },
+    {
+      "id": 6,
+      "username": "user5",
+      "email": "jcmpes5@gmail.com",
+      "mobile": "3423423",
+      "password": "$2b$10$HHOqQRndqMJ7f8/Nz290F.9dlHxGRO2TxymSXTtvNpG0Y5u018bzC"
+    },
+    {
+      "id": 7,
+      "username": "user6",
+      "email": "jcmpes6@gmail.com",
+      "mobile": "3423423",
+      "password": "$2b$10$mkrNgJjoHqPknK4HI7XvXOWV3S28ddGMlmXGpsTQWynSHPA25424q"
+    },
+    {
+      "id": 8,
+      "username": "user7",
+      "email": "jcmpes7@gmail.com",
+      "mobile": "659816182",
+      "password": "$2b$10$LziMmnWdADEaRjvvNCPWXeznZHUilG74iod8zAlGng0YHvox9x1fK"
+    },
+    {
+      "id": 9,
+      "username": "user10",
+      "email": "user@10.com",
+      "mobile": "35345345345",
+      "password": "$2b$10$LziMmnWdADEaRjvvNCPWXesCGTaBKyBiRjaPYhuiXC7s4Wo.TlpLu"
+    },
+    {
+      "id": 10,
+      "username": "user11",
+      "email": "user11@10.com",
+      "password": "$2b$10$LziMmnWdADEaRjvvNCPWXesCGTaBKyBiRjaPYhuiXC7s4Wo.TlpLu"
+    },
+    {
+      "id": 11,
+      "username": "Sara",
+      "email": "saracastrilloperez@gmail.com",
+      "mobile": "626002725",
+      "password": "$2b$10$3/GBG5djVgbTZkFJi6u5meKt88zJTj8Oggrjf0mWAVWviBg.2vS2q"
+    }
+  ]
+}
