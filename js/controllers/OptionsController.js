@@ -13,40 +13,11 @@ export default class OptionsController {
 
     async renderOptions() {
         if(await dataService.getToken() != null) {
-            this.getUser().then(() => {
-                this.element.innerHTML = optionsView(this.user);
-                this.userLogoutEventListener();
-            });
-        } else {
-            
-            this.element.innerHTML = optionsView()
-            this.userLoginEventListerner()
-        }
-
+                this.element.innerHTML = optionsView(true);
+        } else {          
+            this.element.innerHTML = optionsView(false)
+        }       
         
-        
-        
-    }
-
-    async getUser() {
-        const user = await dataService.getUser()
-        this.user = user;
-        return user;         
-    }
-
-    userLogoutEventListener() {
-        const logoutBtn = this.element.querySelector('.logout');
-        logoutBtn.addEventListener('click', () => {
-            dataService.logout();
-            window.location.href = '/index.html'
-        })
-    }
-
-    userLoginEventListerner() {
-        const loginBtn = this.element.querySelector('.login');
-        loginBtn.addEventListener('click', () => {
-            window.location.href = '/register.html'
-        })
     }
 
 

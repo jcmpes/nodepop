@@ -26,34 +26,3 @@
     background-color: #b1df54;
     outline: 0;
 }
-
-.options .new-post > button > i {
-    
-}
-
-.options .user {
-    height: 90px;
-    display: flex;
-    justify-content: flex-end;
-    color: white;
-    
-}
-
-.options .user > .login {
-    color: white;
-    font-size: 2rem;
-    align-self: center;
-    cursor: pointer;
-}
-
-.options .user > .logout {
-    margin-left: 5px;
-    font-size: 1.5rem;
-    align-self: center;
-    cursor: pointer;
-}
-
-.options .user > p {
-    font-size: 1.35rem;
-    align-self: center;
-}

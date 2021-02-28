@@ -5,6 +5,24 @@
     font-size: .8rem;
 }
 
+.hero-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-body > .hero-user > .user {
+  display: flex;
+  align-items: baseline;
+  font-size: 1.5rem;
+}
+
+.hero-body > .hero-user > .user > i {
+  margin-left: .5rem;
+  cursor: pointer;
+  z-index: 99;
+}
+
 .hero > .title { 
     display: flex;
 }

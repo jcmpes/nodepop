@@ -1,10 +1,9 @@
-export const optionsView = (user) => {
-    console.log(user)
-    if(user) {
+export const optionsView = (isLogged) => {
+    if(isLogged) {
         return `
             <div class="user">
-                <p>${user.username}</p>
-                <i class="fas fa-sign-out-alt logout"></i>
+                <!-- This area is just a placeholder to keep the new-post button at the bottom of the page with flex in css -->
+                <!-- The user information is handled elsewhere -->
             </div>
             <div class="new-post">
                 <a href="/newPost.html"> 
@@ -13,11 +12,6 @@ export const optionsView = (user) => {
             </div>
         `
     } else {
-        return `
-            <div class="user">
-                <i class="fas fa-sign-in-alt login"></i>
-            </div>
-        `
+        return ''
     }
-    
 }

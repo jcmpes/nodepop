@@ -18,8 +18,7 @@ export const postListView = (post) => {
                 </div>
 
                 <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus nec iaculis mauris.
+                ${post.description}
                 <a href="#">#css</a> <a href="#">#responsive</a>
                 <br>
                 <time datetime="2016-1-1">${post.published}</time>
