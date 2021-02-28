@@ -28,6 +28,9 @@ export default class PostDetailController {
         pubSub.publish('loading', {})
         try {
             const data = await dataService.getSinglePost(id)
+            // Format date
+            const serverFormat = data.updatedAt;
+            data.updatedAt = serverFormat.replace(/T([^Z]*)Z/, '')
             this.render(data)
         } catch (err) {
             const error = document.createElement('div');

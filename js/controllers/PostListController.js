@@ -47,6 +47,11 @@ export default class PostListController {
         pubSub.publish('loading', {})
         try {
             const data = await dataService.getPosts();
+            // Format date
+            data.map((post) => {
+                const serverFormat = post.updatedAt;
+                post.updatedAt = serverFormat.replace(/T([^Z]*)Z/, '')
+            })
             this.render(data, "Venta")
         // Control error if data is not received
         } catch (err) {
@@ -60,7 +65,7 @@ export default class PostListController {
     }
 
      render(posts, type) {
-        // State of no ads to show
+        // State to show when the posts array is empty
         if (posts.length == 0) {
             const error = document.createElement('div');
             error.innerHTML = errorView(POSTS_ERROR);
