@@ -32,6 +32,7 @@ export default class HeroController extends BaseController {
                 })
                 await this.showHtml().then(() => {
                     this.typeSelectorEventListener();
+                    this.clickAnywhereEventListener();
                     this.compraEventListener();
                     this.ventaEventListener()
                 });
@@ -69,11 +70,20 @@ export default class HeroController extends BaseController {
     }
 
     typeSelectorEventListener() {
-        const arrow = this.element.querySelector('.type-select');
-        arrow.addEventListener('click', (e) => {
-                console.log(e)
-                this.element.querySelector('.selector').classList.toggle('is-hidden')
-            })    
+        const selector = this.element.querySelector('.type-select');
+        selector.addEventListener('click', (e) => {
+            this.element.querySelector('.selector').classList.toggle('is-hidden')
+        }); 
+    }
+
+    clickAnywhereEventListener() {
+        const selectorBox = this.element.querySelector('.selector');
+        const selector = this.element.querySelector('.type-select');
+        document.addEventListener('click', (e) => {
+            if(!selectorBox.classList.contains('is-hidden') && e.target != selector) {
+                selectorBox.classList.add('is-hidden')
+            }
+        })
     }
 
     compraEventListener() {
