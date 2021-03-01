@@ -6,7 +6,7 @@ export const heroView = (subTitle, user) => {
                 Nodepop
                 <div class="lds-ellipsis is-hidden"><div></div><div></div><div></div><div></div></div>
             </div>
-                <p class="type-select" class="subtitle">
+            <p class="type-select" class="subtitle">
                 ${subTitle} <i class="fas fa-sort-down"></i>
             </p>
             <div class="selector is-hidden">

@@ -69,14 +69,11 @@ export default class HeroController extends BaseController {
     }
 
     typeSelectorEventListener() {
-        const arrow = this.element.querySelectorAll('.type-select');
-        arrow.forEach(item => {
-            item.addEventListener('click', (e) => {
+        const arrow = this.element.querySelector('.type-select');
+        arrow.addEventListener('click', (e) => {
                 console.log(e)
                 this.element.querySelector('.selector').classList.toggle('is-hidden')
-            })
-        
-        })    
+            })    
     }
 
     compraEventListener() {
@@ -84,6 +81,7 @@ export default class HeroController extends BaseController {
         compraLink.addEventListener('click', (e) => {
             this.element.querySelector('.selector').classList.toggle('is-hidden')
             // this.publish(this.topics.LOAD_COMPRA, {})
+            this.element.querySelector('.type-select').innerHTML = 'Compra <i class="fas fa-sort-down"></i>'
             const main = document.querySelector('.main')
             new PostListController(main, "Compra")
         })
@@ -93,6 +91,7 @@ export default class HeroController extends BaseController {
         const ventaLink = this.element.querySelector('.venta-selector');
         ventaLink.addEventListener('click', e => {
             this.element.querySelector('.selector').classList.toggle('is-hidden')
+            this.element.querySelector('.type-select').innerHTML = 'Venta'
             window.location.href = '/index.html'
         })
     }
