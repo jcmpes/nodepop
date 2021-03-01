@@ -79,9 +79,10 @@ export default class HeroController extends BaseController {
     clickAnywhereEventListener() {
         const selectorBox = this.element.querySelector('.selector');
         const selector = this.element.querySelector('.type-select');
+        const arrow = this.element.querySelector('i.fas.fa-sort-down')
         document.addEventListener('click', (e) => {
-            if(!selectorBox.classList.contains('is-hidden') && e.target != selector) {
-                selectorBox.classList.add('is-hidden')
+            if(!selectorBox.classList.contains('is-hidden') && e.target != selector && e.target != arrow) {
+                selectorBox.classList.add('is-hidden');
             }
         })
     }
