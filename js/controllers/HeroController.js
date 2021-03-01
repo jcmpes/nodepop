@@ -9,6 +9,7 @@ export default class HeroController extends BaseController {
         super(element)
         this.subtitle = subtitle;
 
+
         const ellipsis = this.element.querySelector('.lds-ellipsis');
         this.user = {}
         this.renderHero()
@@ -64,7 +65,6 @@ export default class HeroController extends BaseController {
     async getUser() {
         const user = await dataService.getUser()
         this.user = user;
-        console.log(this.user)
         return user;         
     }
 
@@ -83,7 +83,9 @@ export default class HeroController extends BaseController {
         const compraLink = this.element.querySelector('.compra-selector');
         compraLink.addEventListener('click', (e) => {
             this.element.querySelector('.selector').classList.toggle('is-hidden')
-            this.publish(this.topics.LOAD_COMPRA, {})
+            // this.publish(this.topics.LOAD_COMPRA, {})
+            const main = document.querySelector('.main')
+            new PostListController(main, "Compra")
         })
     }
 
