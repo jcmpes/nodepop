@@ -1,7 +1,8 @@
 import dataService from '../../services/DataService.js'
 import { heroView } from '../views/heroView.js'
-import BaseController from '../controllers/BaseController.js'
+import BaseController from './BaseController.js'
 import PostListController from './PostListController.js';
+import SearchController from './SearchController.js'
 
 export default class HeroController extends BaseController {
     constructor(element, subtitle) {
@@ -9,8 +10,6 @@ export default class HeroController extends BaseController {
         this.subtitle = subtitle;
 
         const ellipsis = this.element.querySelector('.lds-ellipsis');
-        
-
         
         // this.renderHero()
         this.showHtml().then(() => {
@@ -24,11 +23,12 @@ export default class HeroController extends BaseController {
             if (this.element.querySelector('.login')) {
                 this.userLoginEventListerner();
             }
+            const searchField = this.element.querySelector('.search');
+            new SearchController(searchField);
             this.subscribe(this.topics.LOADING, () => {
                 this.element.querySelector('.title').innerHTML = 'Esperando <div class="lds-ellipsis is-hidden"><div></div><div></div><div></div><div></div></div>';
                 this.element.querySelector('.lds-ellipsis').classList.remove('is-hidden');
-            });
-            
+            });            
             this.subscribe(this.topics.LOADED, () => {
                 this.element.querySelector('.lds-ellipsis').classList.add('is-hidden');
                 this.element.querySelector('.title').innerHTML = 'Nodepop <div class="lds-ellipsis is-hidden"><div></div><div></div><div></div><div></div></div>';

@@ -22,6 +22,7 @@ export const heroView = (subTitle, user) => {
                     <li class="compra-selector">Compra</li>
                 </ul>
             </div>
+            <div class="search"></div>
         </div>
         <div class="hero-user">
             <div class="user">
