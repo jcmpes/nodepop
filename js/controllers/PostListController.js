@@ -1,5 +1,4 @@
 import dataService from '../../services/DataService.js'
-import pubSub from  '../../services/PubSub.js'
 import { postListView } from '../views/postListView.js';
 import { errorView } from '../views/errorView.js'
 import PostDetailController from './PostDetailController.js';
