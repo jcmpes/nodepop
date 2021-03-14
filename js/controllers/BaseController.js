@@ -13,7 +13,9 @@ export default class BaseController {
             NEW_POST: 'newPost',
             POST_DELETED: 'deletedPost',
             LOAD_COMPRA: 'loadCompra',
-            GO_BACK: 'goBack'
+            GO_BACK: 'goBack',
+            SEARCH: 'search',
+            NOT_FOUND: 'notFound'
         }
     }
 

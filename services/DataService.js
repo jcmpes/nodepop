@@ -2,8 +2,8 @@ const BASE_URL = 'http://localhost:8000'
 
 export default {
 
-    getPosts: async function(mode) {
-        const url = `${BASE_URL}/api/posts`
+    getPosts: async function(mode, query='') {        
+        const url = `${BASE_URL}/api/posts?q=${query}`
         const response = await fetch(url);
         if(response.ok) {
             const data = await response.json();

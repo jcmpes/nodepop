@@ -11,7 +11,6 @@
 }
 
 .card > .card-content > .content > .post-description {
-  border: 1px solid red;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

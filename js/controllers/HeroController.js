@@ -120,6 +120,7 @@ export default class HeroController extends BaseController {
             this.element.querySelector('.type-select').innerHTML = 'Compra <i class="fas fa-sort-down"></i>'
             const main = document.querySelector('.main')
             new PostListController(main, "Compra")
+            console.log("new controller instantiaited")
         })
     }
 

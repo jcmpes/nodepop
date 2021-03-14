@@ -23,35 +23,21 @@ export default class PostListController extends BaseController{
             // Instance a new post detail object passing the page scroll information
             new PostDetailController(this.element, context)
         })
-
-        // this.subscribe(this.topics.LOAD_COMPRA, () => {
-            
-        //     this.mode = "Compra"
-        //     this.element.innerHTML = '';
-            
-        //     this.loadPosts(this.mode)
-        //     .then(() => {
-        //         // Listen for a click on a post
-        //         if(this.scrollY != 0) {
-        //             window.scroll(0, scrollY);
-        //         }
-        //         this.element.querySelectorAll('.link').forEach(link => {
-        //             link.addEventListener('click', (e) => {
-        //                 // Remember scrollY position
-        //                 this.mode = 'Compra'
-        //                 const scrollY = e.pageY - e.clientY;
-        //                 const linkTo = e.target.parentElement.parentElement.attributes.href.value;
-        //                 const context = {
-        //                     'scrollY': scrollY,
-        //                     'linkTo': linkTo,
-        //                     'mode': this.mode
-        //                 }
-        //                 this.publish('detail', context)
-        //             })
-    
-        //         })
-        //     })
-        // })
+        this.subscribe(this.topics.SEARCH, (query) => {
+            this.element.innerHTML = '';
+            debugger
+            console.log("this.mode after SEARCH event", this.mode)
+            this.loadPosts(this.mode, query.query)
+        })
+        this.subscribe(this.topics.NOT_FOUND, () => {
+            this.element.innerHTML = `
+                <div class='no-results'>🧠</div>
+                <h1>Sin resultados</h1>
+                <p>Nos hemos estrujado los sesos pero no tenemos los que buscas</p>
+            `;
+        })
+        
+        console.log('this.mode', this.mode)
 
         if(message) {
             this.publish(message)
@@ -60,6 +46,7 @@ export default class PostListController extends BaseController{
         // Load posts
         this.element.innerHTML = '';
         this.loadPosts(this.mode).then(() => {
+            console.log('Se ha ejecutado el loadPosts del constuctor en modo:', this.mode)
             // Listen for a click on a post
             if(this.scrollY != 0) {
                 window.scroll(0, scrollY);
@@ -82,10 +69,11 @@ export default class PostListController extends BaseController{
 
     }
 
-    async loadPosts(mode) {
+    async loadPosts(mode, query='') {
         this.publish(this.topics.LOADING, {})
         try {
-            const data = await dataService.getPosts(mode);
+            const data = await dataService.getPosts(mode, query);
+            // console.log(data)
             // Format date and
             data.map(async (post) => {
                 const dateServerFormat = post.updatedAt;
@@ -101,13 +89,14 @@ export default class PostListController extends BaseController{
             //     const postAuthor = await dataService.getAuthor(userServerFormat)
             //     post.author = postAuthor
             // })
+            console.log('Renderizo posts en modo:', this.mode)
             this.render(data)
         // Control error if data is not received
         } catch (err) {
             const error = document.createElement('div');
             error.innerHTML = errorView(API_ERROR, err);
             this.element.appendChild(error);     
-            throw new Error('ERROR CONSULTANDO A LA API DE ANUNCIOS')
+            throw new Error('ERROR CARGANDO LOS ANUNCIOS')
         } finally {
             this.publish(this.topics.LOADED, {})
         }       
@@ -115,13 +104,14 @@ export default class PostListController extends BaseController{
 
      render(posts) {
         // State to show when the posts array is empty
-        if (posts.length == 0) {
-            const error = document.createElement('div');
-            error.innerHTML = errorView(POSTS_ERROR);
-            this.element.appendChild(error)
+        if (posts.length === 0) {
+            // console.log('DATA LENGTH', posts.length)
+            this.publish(this.topics.NOT_FOUND)
+            // const error = document.createElement('div');
+            // error.innerHTML = errorView(POSTS_ERROR);
+            // this.element.appendChild(error)
         }
         for (const post of posts) {
-
             const article = document.createElement('article');
             article.innerHTML = postListView(post)
             this.element.appendChild(article);

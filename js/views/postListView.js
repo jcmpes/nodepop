@@ -18,7 +18,7 @@ export const postListView = (post) => {
                 </div>
 
                 <div class="content">
-                ${post.description}
+                <p class="post-description">${post.description}</p>
                 <a href="#">#css</a> <a href="#">#responsive</a>
                 <br>
                 <time datetime="2016-1-1">${post.updatedAt}</time>
