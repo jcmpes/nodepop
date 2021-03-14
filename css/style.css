@@ -6,6 +6,20 @@
 /*
 * Ads cards
 */
+.card > .card-content > .media > .media-content {
+  overflow: hidden;
+}
+
+.card > .card-content > .content > .post-description {
+  border: 1px solid red;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+
+
+
 .card > .card-content time {
     color: grey;
     font-size: .8rem;
