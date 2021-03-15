@@ -122,4 +122,5 @@ figure.image.list {
 
 .search-element > .search-form > #search-field:focus ~ #search-icon {
   left: 160px;
+  transition: all ease .3s;
 }
