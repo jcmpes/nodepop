@@ -118,9 +118,11 @@ export default class HeroController extends BaseController {
             this.element.querySelector('.selector').classList.toggle('is-hidden')
             // this.publish(this.topics.LOAD_COMPRA, {})
             this.element.querySelector('.type-select').innerHTML = 'Compra <i class="fas fa-sort-down"></i>'
-            const main = document.querySelector('.main')
-            new PostListController(main, "Compra")
-            console.log("new controller instantiaited")
+            this.publish(this.topics.MODE_COMPRA, {})
+            console.log("publico evento => activar modo compra!")
+            // const main = document.querySelector('.main')
+            // new PostListController(main, "Compra")
+            // console.log("new controller instantiaited")
         })
     }
 

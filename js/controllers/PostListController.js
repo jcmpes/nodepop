@@ -23,9 +23,14 @@ export default class PostListController extends BaseController{
             // Instance a new post detail object passing the page scroll information
             new PostDetailController(this.element, context)
         })
+        this.subscribe(this.topics.MODE_COMPRA, () => {
+            this.element.innerHTML = '';
+            this.mode = "Compra";
+            this.loadPosts(this.mode)
+        })
         this.subscribe(this.topics.SEARCH, (query) => {
             this.element.innerHTML = '';
-            debugger
+            // debugger 
             console.log("this.mode after SEARCH event", this.mode)
             this.loadPosts(this.mode, query.query)
         })

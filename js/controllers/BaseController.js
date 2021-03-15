@@ -15,7 +15,8 @@ export default class BaseController {
             LOAD_COMPRA: 'loadCompra',
             GO_BACK: 'goBack',
             SEARCH: 'search',
-            NOT_FOUND: 'notFound'
+            NOT_FOUND: 'notFound',
+            MODE_COMPRA: 'modeSelling'
         }
     }
 
