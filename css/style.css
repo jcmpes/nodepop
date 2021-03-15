@@ -115,7 +115,9 @@ figure.image.list {
 
 .search-element > .search-form > #search-field:focus {
   width: 190px;
-  color: rgba(255, 255, 255, 1)
+  color: rgba(255, 255, 255, 1);
+  outline: none;
+
 }
 
 .search-element > .search-form > #search-field:focus ~ #search-icon {
