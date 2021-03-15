@@ -17,8 +17,6 @@
 
 }
 
-
-
 .card > .card-content time {
     color: grey;
     font-size: .8rem;
@@ -69,3 +67,57 @@ figure.image.list {
   box-shadow: 0 0 0 1px rgb(211, 211, 211)
 }
 
+/*
+* No results
+*/
+
+.main > .no-results-icon {
+  font-size: 8rem;
+  text-align: center;
+}
+
+.main > .no-results-header {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.main > .no-results-text {
+  font-size: 2rem;
+  text-align: center;
+}
+
+/*
+* Search field
+*/
+
+.search-element {
+  margin-top: 1rem;
+}
+
+.search-element > .search-form > #search-icon {
+  position: relative;
+  top: -30px;
+  left: 12px;
+  cursor: pointer;
+}
+
+.search-element > .search-form > #search-field {
+  background-color: #48c773;
+  border: 1px solid white;
+  border-radius: 1.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  color: white;
+  padding-left: 1rem;
+  transition: all ease .3s;
+  color: rgba(0, 0, 0, 0)
+}
+
+.search-element > .search-form > #search-field:focus {
+  width: 190px;
+  color: rgba(255, 255, 255, 1)
+}
+
+.search-element > .search-form > #search-field:focus ~ #search-icon {
+  left: 160px;
+}

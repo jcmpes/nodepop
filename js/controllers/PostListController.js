@@ -36,9 +36,9 @@ export default class PostListController extends BaseController{
         })
         this.subscribe(this.topics.NOT_FOUND, () => {
             this.element.innerHTML = `
-                <div class='no-results'>🧠</div>
-                <h1>Sin resultados</h1>
-                <p>Nos hemos estrujado los sesos pero no tenemos los que buscas</p>
+                <div class='no-results-icon'>🧠</div>
+                <h1 class='no-results-header'>Sin resultados</h1>
+                <p class='no-results-text'>Nos hemos estrujado los sesos pero no tenemos los que buscas</p>
             `;
         })
         
