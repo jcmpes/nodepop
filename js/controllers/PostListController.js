@@ -30,7 +30,6 @@ export default class PostListController extends BaseController{
         })
         this.subscribe(this.topics.SEARCH, (query) => {
             this.element.innerHTML = '';
-            // debugger 
             this.loadPosts(this.mode, query.query)
         })
         this.subscribe(this.topics.NOT_FOUND, () => {
