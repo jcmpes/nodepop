@@ -92,7 +92,6 @@ export default {
     logout: async function() {
         try {
             localStorage.removeItem('accessToken');
-            console.log('USER LOGGED OUT')
         } catch (err) {
             throw new Error('ERROR WHILE TRYING TO LOG OUT')
         }
@@ -134,7 +133,6 @@ export default {
             const imageURL = await this.uploadImage(postData.image);
             postData.image = imageURL;
             debugger;
-            console.log(imageURL)
         }
         // Create the post request
         const config = {

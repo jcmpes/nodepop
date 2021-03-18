@@ -31,7 +31,6 @@ export default class LoginFormController extends BaseController{
                 window.location.href = '/index.html'              
             } catch (error) {
                 this.publish(this.topics.ERROR)
-                console.log('Error trying to log in')
             } finally {
                 this.publish(this.topics.LOADED)
             }

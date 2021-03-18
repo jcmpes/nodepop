@@ -31,7 +31,6 @@ export default class PostListController extends BaseController{
         this.subscribe(this.topics.SEARCH, (query) => {
             this.element.innerHTML = '';
             // debugger 
-            console.log("this.mode after SEARCH event", this.mode)
             this.loadPosts(this.mode, query.query)
         })
         this.subscribe(this.topics.NOT_FOUND, () => {
@@ -42,8 +41,6 @@ export default class PostListController extends BaseController{
             `;
         })
         
-        console.log('this.mode', this.mode)
-
         if(message) {
             this.publish(message)
         }
@@ -51,7 +48,6 @@ export default class PostListController extends BaseController{
         // Load posts
         this.element.innerHTML = '';
         this.loadPosts(this.mode).then(() => {
-            console.log('Se ha ejecutado el loadPosts del constuctor en modo:', this.mode)
             // Listen for a click on a post
             if(this.scrollY != 0) {
                 window.scroll(0, scrollY);
@@ -78,7 +74,6 @@ export default class PostListController extends BaseController{
         this.publish(this.topics.LOADING, {})
         try {
             const data = await dataService.getPosts(mode, query);
-            // console.log(data)
             // Format date and
             data.map(async (post) => {
                 const dateServerFormat = post.updatedAt;
@@ -94,7 +89,6 @@ export default class PostListController extends BaseController{
             //     const postAuthor = await dataService.getAuthor(userServerFormat)
             //     post.author = postAuthor
             // })
-            console.log('Renderizo posts en modo:', this.mode)
             this.render(data)
         // Control error if data is not received
         } catch (err) {
@@ -110,7 +104,6 @@ export default class PostListController extends BaseController{
      render(posts) {
         // State to show when the posts array is empty
         if (posts.length === 0) {
-            // console.log('DATA LENGTH', posts.length)
             this.publish(this.topics.NOT_FOUND)
             // const error = document.createElement('div');
             // error.innerHTML = errorView(POSTS_ERROR);

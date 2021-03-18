@@ -28,7 +28,6 @@ export default class RegisterFormController extends BaseController {
             if (e.submitter.id == "submit-btn") {
                 // Only for the register form
                 e.preventDefault()
-                console.log(e)
                 const userData = {
                     username: this.element.elements.name.value,
                     email: this.element.elements.email.value,

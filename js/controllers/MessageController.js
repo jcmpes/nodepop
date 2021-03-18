@@ -22,7 +22,6 @@ export default class MessageController extends BaseController {
 
     deleteButtonHandler() {
         this.element.addEventListener('click', (event) => {
-            console.log(event)
             const deleteButton = this.element.querySelector('.delete');
             if (event.target == deleteButton) {
                 clearTimeout(this.delayedHide);
