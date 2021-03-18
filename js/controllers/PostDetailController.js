@@ -19,7 +19,7 @@ export default class PostDetailController extends BaseController {
         this.loadPost(context.linkTo)
             .then(() => {
             this.element.querySelector('#back-btn').addEventListener('click', () => {
-                this.goBack(context.mode, context.scrollY);
+                this.goBack(context.mode, context.scrollY, 'no-delete');
             });
             this.removePostEventListener().then(() => {
                 this.goBack(context.mode, context.scrollY)
@@ -69,10 +69,10 @@ export default class PostDetailController extends BaseController {
         });
     }
 
-    goBack(mode, scrollY) {
+    goBack(mode, scrollY, str=null) {
         this.element.innerHTML = '';
         // this.publish(this.topics.GO_BACK, { mode, scrollY, msg: this.topics.POST_DELETED })
-        new PostListController(this.element, mode, scrollY, this.topics.POST_DELETED)
+        new PostListController(this.element, mode, scrollY, str == "no-delete" ? null : this.topics.POST_DELETED)
         
     }
 
