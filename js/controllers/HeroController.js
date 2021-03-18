@@ -96,9 +96,11 @@ export default class HeroController extends BaseController {
 
     typeSelectorEventListener() {
         const selector = this.element.querySelector('.type-select');
-        selector.addEventListener('click', (e) => {
-            this.element.querySelector('.selector').classList.toggle('is-hidden')
-        }); 
+        if(selector) {
+            selector.addEventListener('click', (e) => {
+                this.element.querySelector('.selector').classList.toggle('is-hidden')
+            }); 
+        }
     }
 
     clickAnywhereEventListener() {

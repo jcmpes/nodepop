@@ -19,16 +19,22 @@ export default class NewPostFormController extends BaseController {
         this.element.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const postData = {
+            /*
+            * SANITIZE DATA
+            */
+            let postData = {
                 type: this.element.elements.type.value,
-                title: this.element.elements.title.value,
-                price: this.element.elements.price.value,
-                description: this.element.elements.description.value,
+                title: this.element.elements.title.value.replace(/(<|>)+/g, ''),
+                price: this.element.elements.price.value.replace(/(<|>)+/g, ''),
+                description: this.element.elements.description.value.replace(/(<|>)+/g, ''),
             };
 
             if (this.element.elements.image.files.length > 0) {
                 postData.image = this.element.elements.image.files[0];
             };
+
+            
+
             this.publish(this.topics.LOADING);
             try {
                 await dataService.savePost(postData);
@@ -43,7 +49,6 @@ export default class NewPostFormController extends BaseController {
 
     imageSelectedEventListener() {
         const fileField = document.querySelector('.file-input');
-        console.log(fileField)
         const fileNameSpan = this.element.querySelector('.file-name')
         fileField.addEventListener('change', () => {
             const fileName = fileField.files[0].name;
