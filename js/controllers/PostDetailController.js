@@ -1,10 +1,8 @@
 import dataService from '../../services/DataService.js'
-import pubSub from '../../services/PubSub.js'
 import { postDetailView } from '../views/postDetailView.js'
 import { errorView } from '../views/errorView.js'
 import PostListController from './PostListController.js'
 import BaseController from './BaseController.js'
-import MessageController from './MessageController.js'
 
 
 const POSTS_ERROR = 'posts_err';
@@ -44,7 +42,7 @@ export default class PostDetailController extends BaseController {
             const userId = await dataService.getAuthor(data['userId'])
             data['author'] = userId
             // Get userId to send to the view
-            const user = await dataService.getUser()
+            const user = await dataService.getUser() || 'No user'
             this.render(data, user)
         } catch (err) {
             const error = document.createElement('div');
