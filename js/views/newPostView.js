@@ -1,27 +1,29 @@
 export const newPostView = () => {
     return `
-        <div class="control">
-            <div class="field-label is-normal">
-                <label class="label">¿Compra o Venta?</label>
+        <div class="field is-horizontal is-flex is-flex-direction-column is-align-items-start">
+            <div class="field-label">
+                <label class="label">¿Compra o Venta?</label>        
             </div>
             <div class="select is-rounded">
-                <select name="type">
+                <select class="is-pulled-right" name="type">
                     <option>Venta</option>
                     <option>Compra</option>
                 </select>
+            </div>  
+        </div>
+
+        <div class="field is-horizontal is-flex is-flex-direction-column is-align-items-left">
+            <div class="field-label ">
+                <label class="label is-pulled-left">Título</label>            
+            </div>
+            <div class="field-body">
+                <input class="input field-body is-rounded" name="title" type="text" placeholder="Título">
             </div>
         </div>
 
-        <div class="control">
-            <div class="field-label is-normal">
-                <label class="label">Título</label>
-            </div>
-            <input class="input is-rounded" name="title" type="text" placeholder="Título">
-        </div>
-
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label">Descripción</label>
+        <div class="field is-horizontal is-flex is-flex-direction-column is-align-items-left">
+            <div class="field-label">
+                <label class="label is-pulled-left">Descripción</label>
             </div>
             <div class="field-body">
                 <div class="field">
@@ -32,13 +34,13 @@ export const newPostView = () => {
             </div>
         </div>
 
-        <div class="field is-horizontal">
+        <div class="field is-flex is-flex-direction-column is-align-items-start">
             <div class="field-label is-normal">
                 <label class="label">Precio</label>
             </div>
             <div class="field has-addons">
                 <p class="control">
-                    <input name="price" class="input is-rounded" type="text" placeholder="Precio">
+                    <input name="price" class="input is-rounded" type="number" placeholder="Precio">
                 </p>
                 <p class="control">
                     <a class="button is-static is-rounded">
@@ -48,7 +50,7 @@ export const newPostView = () => {
             </div>
         </div>
 
-        <div class="field-label is-normal">
+        <div class="field-label is-flex is-flex-direction-column is-align-items-start">
             <label class="label">Imagen</label>
         </div>
         <div class="file has-name is-boxed">
@@ -66,7 +68,7 @@ export const newPostView = () => {
             </label>
         </div>
 
-        <div class="field is-grouped">
+        <div class="field is-grouped mt-5">
             <p class="control">
                 <button class="button is-primary is-rounded">
                     Submit
