@@ -26,7 +26,27 @@ export default class PostListController extends BaseController{
         this.subscribe(this.topics.MODE_COMPRA, () => {
             this.element.innerHTML = '';
             this.mode = "Compra";
-            this.loadPosts(this.mode)
+            this.loadPosts(this.mode).then(() => {
+                // Listen for a click on a post
+                if(this.scrollY != 0) {
+                    window.scroll(0, scrollY);
+                }
+                this.element.querySelectorAll('.link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        // Remember scrollY position
+                        console.log(e)
+                        const scrollY = e.pageY - e.clientY;
+                        const linkTo = e.target.parentElement.parentElement.attributes.href.value;
+                        const context = {
+                            'scrollY': scrollY,
+                            'linkTo': linkTo,
+                            'mode': this.mode
+                        }
+                        this.publish('detail', context)
+                    })
+    
+                })
+            })
         })
         this.subscribe(this.topics.SEARCH, (query) => {
             this.element.innerHTML = '';
@@ -54,6 +74,7 @@ export default class PostListController extends BaseController{
             this.element.querySelectorAll('.link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     // Remember scrollY position
+                    console.log(e)
                     const scrollY = e.pageY - e.clientY;
                     const linkTo = e.target.parentElement.parentElement.attributes.href.value;
                     const context = {

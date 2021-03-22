@@ -11,8 +11,6 @@ export default class LoginFormController extends BaseController{
         super(element)
         this.renderLoginForm();
         this.loginEventListener();
-
-
     };
 
     loginEventListener() {
