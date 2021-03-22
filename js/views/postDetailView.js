@@ -1,6 +1,6 @@
 export const postDetailView = (post, user) => {
     return `
-        <button id="back-btn" class="button is-rounded">Back</button>
+        <button id="back-btn" class="button is-rounded is-fullwidth mb-5">Back</button>
 
         <div class="card">
             <header class="card-header">
