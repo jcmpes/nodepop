@@ -1,6 +1,6 @@
 export const postListView = (post) => {
     return `
-        <div class="card">
+        <div class="card mb-5">
             <div class="card-image">
                 <div class="link" href="${post.id}">
                     <figure class="image list is-4by3">
@@ -18,10 +18,10 @@ export const postListView = (post) => {
                 </div>
 
                 <div class="content">
-                <p class="post-description">${post.description}</p>
-                <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">${post.updatedAt}</time>
+                    <p class="post-description">${post.description}</p>
+                    <a href="#">#css</a> <a href="#">#responsive</a>
+                    <br>
+                    <time datetime="2016-1-1">${post.updatedAt}</time>
                 </div>
             </div>
         </div>
