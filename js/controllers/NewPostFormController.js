@@ -24,9 +24,9 @@ export default class NewPostFormController extends BaseController {
             */
             let postData = {
                 type: this.element.elements.type.value,
-                title: this.element.elements.title.value.replace(/(<|>)+/g, ''),
-                price: this.element.elements.price.value.replace(/(<|>)+/g, ''),
-                description: this.element.elements.description.value.replace(/(<|>)+/g, ''),
+                title: this.element.elements.title.value.replace(/<(.*?)>/g, ''),
+                price: this.element.elements.price.value.replace(/<(.*?)>/g, ''),
+                description: this.element.elements.description.value.replace(/<(.*?)>/g, ''),
             };
 
             if (this.element.elements.image.files.length > 0) {
